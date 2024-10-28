@@ -1,0 +1,155 @@
+programa {
+  
+    //Banco de Informações
+     inteiro bagc= 3, bcon= 3, bsen= 123, agc, con, sen
+     caracter voltar, deposito
+     real saldo = 26.000, limite = 800, total = limite + saldo, deposito, saque
+  
+  funcao vetor(){
+
+    para(i=1; i<1000; i++){
+
+    }
+
+    para(i=1; i<1000; i++){
+
+
+
+      
+    }
+
+
+
+
+
+
+
+
+
+
+  }
+
+
+funcao inicio() {  
+
+  inteiro agc, con, sen  
+  faca{
+
+  escreva("Informe o número da agêcia: ")
+  leia(agc)
+  escreva("\nInforme o número da conta: ")
+  leia(con)
+  escreva("\nInforme a senha: ")
+  leia(sen)
+  limpa()
+
+  }enquanto(bagc != agc ou bcon != con ou bsen != sen)
+
+}
+
+
+
+
+  funcao menu(){
+
+
+
+
+
+
+    inteiro opcao
+
+    escreva("\nEscolha Uma Operação Abaixo \n")
+    escreva("\n1- Saldo | 2- Extrato | 3- Saque | 4- Depósito | 5- Sair \n")
+    escreva("\nOpção: ")
+    leia(opcao)
+    limpa()
+
+  
+
+    escolha(opcao){
+
+      caso 1:
+      saldo()
+      pare
+
+      caso 2:
+      extrato()
+      pare
+
+      caso 3:
+      saque()
+      pare
+
+      caso 4:
+      deposito()
+      pare
+
+      caso 5:
+      voltar()
+      pare
+
+      caso contrario: escreva("Opção Inválida. Tente Novamente")
+ }
+
+  }
+  funcao menu()
+funcao saldo(){
+
+faca{
+
+escreva("Deseja voltar para o ínicio s|n?\n")
+escreva("Saldo:", saldo, "\n")
+escreva("Limite:", limite, "\n")
+escreva("Total:", total, "\n\n")
+leia()
+
+escreva("Deseja voltar ao menu principal s|n? ")
+}
+ enquanto(voltar != "s")
+ limpa()
+ menu()
+
+}  
+       
+funcao extrato(){
+
+escreva(saldo + deposito, "\n\n")
+escreva("-----------------\n\n")
+
+escreva("Deseja voltar para o ínicio s|n?\n")
+}  
+
+funcao deposito(){
+ faca{
+
+escreva("Qual o valor que deseja depositar: ")
+leia(deposito)
+escreva("---------------------------\n")
+deposito + saldo
+
+escreva("Deseja voltar ao menu principal s|n? ")
+leia(voltar)
+ 
+ }
+}
+ funcao saque(){
+escreva("Qual o valor que você deseja sacar?\n")
+leia(saque)
+escreva("--------------------------\n")
+
+
+} 
+
+
+
+     
+funcao Voltar(){
+escreva("Deseja voltar para o ínicio s|n?\n")
+leia(voltar)
+ 
+}
+
+
+
+}
