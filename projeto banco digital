@@ -1,28 +1,21 @@
 programa {
   
-    //Banco de Informações
-     inteiro bagc= 3, bcon= 3, bsen= 123, agc, con, sen
-     caracter voltar, deposito
-     real saldo = 26.000, limite = 800, total = limite + saldo, deposito, saque
+  //Banco de Informações
+     inteiro bagc= 3, bcon= 3, bsen= 123, i
+     caracter voltar
+     real saldo = 10000, limite = 500, total = limite + saldo, deposito, s
   
   funcao vetor(){
 
     para(i=1; i<1000; i++){
 
+
     }
 
     para(i=1; i<1000; i++){
 
-
-
       
-    }
-
-
-
-
-
-
+     }
 
 
 
@@ -32,18 +25,22 @@ programa {
 
 funcao inicio() {  
 
-  inteiro agc, con, sen  
+  inteiro agc, con, sen 
+
+
   faca{
 
-  escreva("Informe o número da agêcia: ")
-  leia(agc)
-  escreva("\nInforme o número da conta: ")
-  leia(con)
-  escreva("\nInforme a senha: ")
-  leia(sen)
+     escreva("Informe o número da agêcia: ")
+     leia(agc)
+     escreva("\nInforme o número da conta: ")
+     leia(con)
+     escreva("\nInforme a senha: ")
+     leia(sen)
   limpa()
 
   }enquanto(bagc != agc ou bcon != con ou bsen != sen)
+
+  menu()
 
 }
 
@@ -53,14 +50,10 @@ funcao inicio() {
   funcao menu(){
 
 
-
-
-
-
     inteiro opcao
 
     escreva("\nEscolha Uma Operação Abaixo \n")
-    escreva("\n1- Saldo | 2- Extrato | 3- Saque | 4- Depósito | 5- Sair \n")
+    escreva("\n1- Saldo | 2- Extrato | 3- Saque | 4- Depósito | 5- Sair\n")
     escreva("\nOpção: ")
     leia(opcao)
     limpa()
@@ -93,7 +86,7 @@ funcao inicio() {
  }
 
   }
-  funcao menu()
+
 funcao saldo(){
 
 faca{
@@ -102,54 +95,86 @@ escreva("Deseja voltar para o ínicio s|n?\n")
 escreva("Saldo:", saldo, "\n")
 escreva("Limite:", limite, "\n")
 escreva("Total:", total, "\n\n")
-leia()
+escreva("-------------------\n\n")
 
-escreva("Deseja voltar ao menu principal s|n? ")
-}
- enquanto(voltar != "s")
- limpa()
- menu()
+
+
+    escreva("Deseja voltar ao menu principal s|n? ")
+    leia(voltar)
+
+   }
+    enquanto(voltar != "s")
+    limpa()
+    menu()
 
 }  
        
 funcao extrato(){
+  faca{
 
 escreva(saldo + deposito, "\n\n")
 escreva("-----------------\n\n")
 
-escreva("Deseja voltar para o ínicio s|n?\n")
+escreva("Deseja voltar ao menu principal s|n?\n")
+leia(voltar)
+
+  }
+    enquanto(voltar != "s")
+    limpa()
+    menu()
 }  
 
 funcao deposito(){
  faca{
 
-escreva("Qual o valor que deseja depositar: ")
-leia(deposito)
-escreva("---------------------------\n")
-deposito + saldo
+   escreva("Qual valor deseja depositar: ")
+   leia(deposito)
+   escreva("---------------------------\n\n")
 
-escreva("Deseja voltar ao menu principal s|n? ")
-leia(voltar)
+
+   escreva("Deseja voltar ao menu principal s|n? ")
+   leia(voltar)
  
  }
+   enquanto(voltar != "s")
+   limpa()
+   menu()
 }
+ 
  funcao saque(){
-escreva("Qual o valor que você deseja sacar?\n")
-leia(saque)
-escreva("--------------------------\n")
+
+    faca{
+
+       escreva("Qual valor você deseja sacar: ")
+       leia(s)
+       escreva("-------------------------\n\n")
 
 
+
+       se(saldo < s){
+          escreva("Valor indisponível")
+
+
+       }
+
+        s - saldo
+
+        escreva("Deseja voltar ao menu principal s|n?")
+        leia(voltar)
+          
+
+
+    }
+     enquanto(voltar != "s")
+     limpa()
+     menu()
+  
+  
+
+  }  
+
+  
 } 
 
 
 
-     
-funcao Voltar(){
-escreva("Deseja voltar para o ínicio s|n?\n")
-leia(voltar)
- 
-}
-
-
-
-}
