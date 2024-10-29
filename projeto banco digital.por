@@ -9,13 +9,15 @@ programa {
 
     para(i=1; i<1000; i++){
 
+       credito[i] = 0.0
 
     }
 
     para(i=1; i<1000; i++){
 
-      
-     }
+       debito[i] = 0.0
+        
+    }
 
 
 
@@ -131,6 +133,14 @@ funcao deposito(){
    leia(deposito)
    escreva("---------------------------\n\n")
 
+    para(inteiro i = 0; i < 1000; i++){
+se(credito[i] == 0){
+
+    credito[i] = deposito
+    pare
+
+  }
+    }
 
    escreva("Deseja voltar ao menu principal s|n? ")
    leia(voltar)
@@ -158,11 +168,18 @@ funcao deposito(){
        }
 
         s - saldo
+          
+        para(inteiro i = 0; i < 1000; i++){
+se(debito[i] == 0){
+
+    debito[i] = s
+    pare
+
+  }
+    }
 
         escreva("Deseja voltar ao menu principal s|n?")
-        leia(voltar)
-          
-
+             leia(voltar)
 
     }
      enquanto(voltar != "s")
@@ -173,8 +190,21 @@ funcao deposito(){
 
   }  
 
+
+
+
+
+
+
   
 } 
+
+
+
+
+
+
+
 
 
 
