@@ -1,0 +1,51 @@
+import flet as ft
+
+lista = []
+
+def main(page: ft.Page):
+
+    
+    page.bgcolor = '#FFFFFF'
+    page.window_center()
+    page.window_width = '350'
+    page.window_height = '450'
+    page.window_resizable = False
+    page.padding = 75
+    page.window_maximizable = False
+
+    n1 = ft.TextField(label = "Digite seu nome")
+    n2 = ft.TextField(label = "Digite o ano Atual")
+    n3 = ft.TextField(label = "Digite o Ano de Nascimento")
+
+
+    def calcular(e):
+
+        nome = str(n1.value)  
+        anoatual = int(n2.value)
+        anonasc = int(n3.value)    
+            
+            
+        if nome and anoatual and anonasc:
+            
+            lista.append(f'Olá {nome} sua idade é: {anoatual - anonasc}')    
+            
+            n1.value = ""
+            n2.value = ""
+            n3.value = ""
+            
+
+
+            listar_dados.controls.append(ft.Text(f'Olá {nome} sua idade é: {anoatual - anonasc}'))
+            page.update()
+
+
+
+
+
+    btn = ft.FilledButton(text = "Calcular", on_click = calcular, width = 200)
+
+    listar_dados = ft.Column()
+
+
+    page.add(n1, n2, n3, btn, listar_dados)
+ft.app(target = main)
