@@ -1,0 +1,36 @@
+*{
+    padding: 0;
+    margin: 0;
+    
+}
+
+header{
+    padding: 6px;
+    background-color: aliceblue;
+    text-align: center;
+}
+
+header2{
+    padding: 20px;
+    
+}
+
+h5{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.email{
+    text-align: center;
+    padding: 90px;
+}
+
+button{
+    background-color: black;
+    color: white;
+}
+
+footer{
+    background-color: aliceblue;
+    text-align: center;
+    padding: 30px;
+}
