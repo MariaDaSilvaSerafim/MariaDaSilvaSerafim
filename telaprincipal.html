@@ -3,58 +3,91 @@
 <head>
     <meta charset = "UTF-8">
     <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
-    <link rel = "stylesheet" href = "telaprin.css">
-    <title>BARRA CREW</title>
+    <title>Barra Crew</title>
+     <link rel = "stylesheet" href = "telaprin.css">
 </head>
 <body>
-    <header>
-        <h5>
-            Envio grátis em pedidos acima de R$399,00
-        </h5>
-    </header>
-<hr>
+    <div class = "container">
+            <div class = "barra" onmouseenter = "suba()">
+            <p>Envio grátis em pedidos acima de R$399,00</p>
+            </div>
 
-    <header class = "header2">
-        <nav>
-            <ul>
-                <img src = "logo.jpg" alt = "logo" width = "50">
-            <a href = "https://www.barracrew.com.br/loja" target = "_blank">LOJA</a>
-            <a href = "https://www.barracrew.com.br/blog" target = "_blank">BLOG</a>
-            <a href = "https://www.barracrew.com.br/p/sobre" target = "_blank">SOBRE</a>
-                
-            </ul>
-        </nav>
-    
 
-    <body class="image">
-        <img src = "barracrew.webp" alt = "barracrew">
-    </body> 
+        <div class = "line"></div>
+        
 
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+        <header class = "nav" onmouseenter = "nave()" onmouseleave = "nava()">
+            <img src = "logo.svg" alt = "logo">
+            <div class = "itens">
+                <a onmouseenter = "sube()" href = "dept/loja.html" class = "lojap">LOJA</a>
+                <a href = "dept/blog.html">BLOG</a>
+                <a href = "dept/sobre.html">SOBRE</a>
+            </div>
+            <div class = "icons">
+                <img src = "assets/search.svg" alt = "" class = "icon lupa">
+                <img src = "assets/user.svg" alt = "" class = "icon perfil">
+                <img src = "assets/shopping-cart.svg" alt = "" class = "icon carro">
+            </div>
+        
+        </header>
 
-    <hr>
-        <div class = "email">
-                    <h5 class = "h5">NEWSLETTER</h5>
-                <input type = "text" class = "form-control" placeholder = "Qual o seu e-mail?" aria-label = "Recipient’s username" aria-describedby = "button-addon2">
-                <button class = "button" type = "button" id = "button-addon2">Assinar</button>
+        <header class = "sub" onmouseleave = "suba() , nava()" onmouseenter = "nave()">
+            <div class = "subhr"></div>
+            <a class = "pc">CAMPANHA 01 2025 </a>
+            <a class = "pe" >CONDIÇÕES ESPECIAIS</a>
+        </header>
+
+        <div class = "carrinho">
+            <div class = "pr">
+                <p class = "p1">Carrinho de Compras</p><p class = "p2">(0 itens)</p>
+                <button class = "btx">x</button>
+            </div>
+            <p class = "sc">Seu carrinho está vazio</p>
+            
         </div>
-    
-    <hr>
-        <footer>
-        <h5>
-            Barra Crew Comércio Ltda. Cnpj: 30.465.714/0001-36
-Espírito Santo - Brasil
-        </h5>
+
+        
+
+
+
+        <img src = "barracrew.webp" alt = "barracrew" class = "img">
+
+        
+    </div>
+    <footer class = "footer">
+        <div class = "rodape1">
+            <hr>
+            <div class = "news">
+                <label for = "new">NEWSLETTER</label> <br>
+            <div class = "inbt">
+                <input type = "text" name="new" placeholder = "Qual seu e-mail?">
+                <button style = "font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">ASSINAR</button>
+            </div>
+            </div>
+
+            <div class = "contat">
+                <b>Contato</b>
+                <p>Sobre</p>
+            </div> 
+            
+            <div class = "infos">
+                <b>TERMOS E CONDIÇÕES</b>
+                <p>Termos de Uso</p>
+                <p>Políticas de Privacidade</p>
+                <p>Trocas e Devoluções</p>
+            </div>
+        </div>
+        <hr>
+    <div class="rodape2">
+        <img src="assets/img12.svg" alt="">
+        <p>Barra Crew Comércio Ltda. Cnpj: 30.465.714/0001-36 <br>
+Espírito Santo - Brasil</p>
+
+        <p style="margin-left: 20vw; font-size: 15px;">Vnda - Tecnologia em Ecommerce</p>
+    </div>
     </footer>
+
+
+    <script src="script.js"></script>
 </body>
 </html>
