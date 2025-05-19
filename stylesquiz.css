@@ -1,0 +1,34 @@
+body{
+    background: linear-gradient(90deg, #000, #fff);
+    font-style: inherit;
+    padding: 50px;
+}
+
+.container{
+    background: #fff;
+    border-radius: 20px;
+    width: 600px;
+    box-shadow: 0 0 10px rgb(202, 52, 52);
+    text-align: center;
+    margin: auto;
+    padding: 25px;
+}
+
+label a:hover{
+    background-color: rgb(154, 18, 208);
+}
+
+button{
+    background-color: black;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 20px;
+    box-shadow: 0 0 10px rgb(0, 0, 0);
+}
+
+button:hover{
+    background-color: #0056b3;
+}
