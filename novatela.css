@@ -1,0 +1,123 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(255, 255, 255);
+    z-index: 0;
+}
+
+.quadrado{
+    width: auto;
+    height: 890px;
+    background-color: rgb(3, 20, 58);
+    color: aliceblue;
+    text-align: center;
+    font-size: 40px;
+}
+
+.bolha1{
+    background-color: white;
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    bottom: -100px;
+    animation: floatUp 19s linear infinite;
+}
+
+.bolha2{
+    background-color: rgb(226, 230, 233);
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    animation-delay: 100ms;
+    left: 60%;
+    position: absolute;
+    bottom: 90px;
+    animation: floatUp 25s linear infinite;
+}
+.bolha3{
+    background-color: rgb(251, 250, 255);
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    animation-delay: 100ms;
+    left: 30%;
+    bottom: 80px;
+    animation: floatUp 10s linear infinite;
+}
+.bolha4{
+    background-color: rgb(226, 230, 233);
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    animation-delay: 100ms;
+    left: 80%;
+    bottom: 90px;
+    animation: floatUp 15s linear infinite;
+}
+
+.bolha5{
+    background-color: rgb(226, 230, 233);
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    animation-delay: 100ms;
+    left: 20%;
+    bottom: 90px;
+    animation: floatUp 12s linear infinite;
+}
+
+.bolha6{
+    background-color: rgb(226, 230, 233);
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    animation-delay: 100ms;
+    left: 40%;
+    bottom: 90px;
+    animation: floatUp 18s linear infinite;
+}
+
+.bolha7{
+    background-color: rgb(226, 230, 233);
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    animation-delay: 100ms;
+    left: 10%;
+    bottom: 100px;
+    animation: floatUp 22s linear infinite;
+}
+
+.bolha8{
+    background-color: rgb(226, 230, 233);
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    animation-delay: 100ms;
+    left: 70%;
+    bottom: 90px;
+    animation: floatUp 20s linear infinite;
+}
+
+@keyframes floatUp {
+    0%{
+        transform: translateY(0) scale(1);
+        opacity: 0.5;
+    }
+    100%{
+        transform: translateY(-120vh) scale(1.2);
+        opacity: 0;
+    }
+}
