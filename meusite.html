@@ -1,40 +1,250 @@
 <!DOCTYPE html>
-<html lang = "en">
+<html lang="pt-BR">
 <head>
     <meta charset = "UTF-8">
-    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
-    <title>MEU SITE</title>
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    <title>STYLESQUAD - Moda Oversized e Personalização</title>
     <link rel = "stylesheet" href = "meusite.css">
 </head>
 <body>
-    <header class = "header">
-        <img src = "stylesquad.png" alt = "stylesquad" class = "img">
-        <div class = "itens">
-                <a onmouseenter = "sube()" href = "dept/loja.html" class = "lojap" lang = "br" style = "padding-right: 0px;"><h6>CATEGORIA</h6></a>
-                <a href = "dept/blog.html"><h6>PROMOÇÕES</h6></a>
-                <a href = "dept/blog.html"><h6>ROUPAS FEMININAS</h6></a>
-                <a href = "dept/blog.html"><h6>SAPATOS</h6></a>
-                <a href = "dept/blog.html"><h6>ROUPAS MASCULINAS</h6></a>
-                <a href = "dept/blog.html"><h6>OUTROS</h6></a>
-                <a href = "dept/sobre.html"><h6>SOBRE</h6></a>
+    <!-- Cabeçalho -->
+    <header>
+        <div class = "container header-container">
+            <div class = "logo">STYLE<span>SQUAD</span></div>
+            <nav>
+                <ul>
+                    <li><a href = "#home">Início</a></li>
+                    <li><a href = "#products">Produtos</a></li>
+                    <li><a href = "#custom">Personalizar</a></li>
+                    <li><a href = "#categories">Categorias</a></li>
+                    <li><a href = "#about">Sobre</a></li>
+                    <li><a href = "#contact">Contato</a></li>
+                </ul>
+            </nav>
+            <div class = "cart-icon">
+                <i class = "fas fa-shopping-cart"></i>
+                <span class = "cart-count">0</span>
             </div>
-
-            <div class = "icons">
-                <img src = "lupa.png" alt = "" class = "icon lupa">
-                <img src = "perfil.png" alt = "" class = "icon perfil">
-                <img src = "carrinho.png" alt = "" class = "icon carrinho">
-                <img src = "favoritos.png" alt = "" class = "icon favoritos">
-                <img src = "atendimento.png" alt = "" class = "icon atendimento">
-            </div>
-
+        </div>
     </header>
-    <div>
 
-    </div>
+    <!-- Hero Section -->
+    <section class = "hero" id = "home">
+        <div class = "container hero-content">
+            <h1>ESTILO OVERSIZED QUE VOCÊ AMA</h1>
+            <p>Personalize suas peças ou escolha entre nossas coleções exclusivas. Conforto e estilo em cada detalhe.</p>
+            <a href="#products" class="btn">COMPRE AGORA</a>
+        </div>
+    </section>
 
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
+    <!-- Seção de Destaques -->
+    <section class="featured" id="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>DESTAQUES</h2>
+            </div>
+            <div class="products-grid">
+                <!-- Produto 1 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80" alt="Moletom Oversized">
+                    </div>
+                    <div class="product-info">
+                        <h3>Moletom Oversized</h3>
+                        <p>Moletom premium com capuz, bolso kanguru e ajuste perfeito oversized.</p>
+                        <div class="product-price">
+                            <span class="price">R$ 149,90</span>
+                            <button class="btn">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Produto 2 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Camiseta Básica Oversized">
+                    </div>
+                    <div class="product-info">
+                        <h3>Camiseta Básica Oversized</h3>
+                        <p>Camiseta 100% algodão com caimento perfeito oversized para qualquer look.</p>
+                        <div class="product-price">
+                            <span class="price">R$ 79,90</span>
+                            <button class="btn">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Produto 3 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1604176354204-9268737828e4?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Calça Cargo Streetwear">
+                    </div>
+                    <div class="product-info">
+                        <h3>Calça Cargo Streetwear</h3>
+                        <p>Calça cargo oversized com múltiplos bolsos e tecido resistente.</p>
+                        <div class="product-price">
+                            <span class="price">R$ 169,90</span>
+                            <button class="btn">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Produto 4 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Kit Garrafa + Copo">
+                    </div>
+                    <div class="product-info">
+                        <h3>Kit Garrafa + Copo</h3>
+                        <p>Conjunto de garrafa térmica e copo personalizável com seu estilo.</p>
+                        <div class="product-price">
+                            <span class="price">R$ 99,90</span>
+                            <button class="btn">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Personalização -->
+    <section class="customization" id="custom">
+        <div class="container">
+            <div class="section-title">
+                <h2>PERSONALIZE SEU ESTILO</h2>
+            </div>
+            <div class="custom-steps">
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h3>Escolha seu produto</h3>
+                    <p>Selecione entre camisetas, moletons, calças ou acessórios para personalizar.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>Customize seu design</h3>
+                    <p>Use nosso editor online para criar estampas únicas ou adicionar textos.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Receba em casa</h3>
+                    <p>Entregamos em todo o Brasil em até 10 dias úteis após a confecção.</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="#custom" class="btn" style="background: white; color: #ff8c00;">COMEÇAR A PERSONALIZAR</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Categorias -->
+    <section class="categories" id="categories">
+        <div class="container">
+            <div class="section-title">
+                <h2>CATEGORIAS</h2>
+            </div>
+            <div class="category-grid">
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1527719327859-c6ce80353573?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Camisetas">
+                    <div class="category-overlay">
+                        <h3>Camisetas</h3>
+                    </div>
+                </div>
+                
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Moletons">
+                    <div class="category-overlay">
+                        <h3>Moletons</h3>
+                    </div>
+                </div>
+                
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1604176354204-9268737828e4?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Calças">
+                    <div class="category-overlay">
+                        <h3>Calças Cargo</h3>
+                    </div>
+                </div>
+                
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Acessórios">
+                    <div class="category-overlay">
+                        <h3>Acessórios</h3>
+                    </div>
+                </div>
+                
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Coleções">
+                    <div class="category-overlay">
+                        <h3>Coleções</h3>
+                    </div>
+                </div>
+                
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Personalizados">
+                    <div class="category-overlay">
+                        <h3>Personalizados</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>STYLESQUAD</h3>
+                    <p>Moda oversized e personalização para quem não segue padrões. Estilo único para você expressar sua personalidade.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Links Úteis</h3>
+                    <ul>
+                        <li><a href="#">Política de Entrega</a></li>
+                        <li><a href="#">Trocas e Devoluções</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">Termos de Serviço</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> contato@stylesquad.com.br</li>
+                        <li><i class="fas fa-phone"></i> (11) 99999-9999</li>
+                        <li><i class="fas fa-map-marker-alt"></i> São Paulo - SP</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Assine nossa newsletter e receba 10% OFF na primeira compra!</p>
+                    <form>
+                        <input type="email" placeholder="Seu e-mail" style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none;">
+                        <button type="submit" class="btn" style="width: 100%;">ASSINAR</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 STYLESQUAD. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
