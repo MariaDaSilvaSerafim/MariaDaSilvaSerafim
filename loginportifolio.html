@@ -1,16 +1,124 @@
-## Hi there 👋
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Meu Portfólio</title>
+    <link rel="stylesheet" href="login.css">
+<body>
+    <div class="login-container">
+        <div class = "titulo">
+                    <h1>TechMaster</h1>
+                </div>
 
-<!--
-**MariaDaSilvaSerafim/MariaDaSilvaSerafim** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="seu@email.com" required>
+                <i class="fas fa-envelope input-icon"></i>
+            </div>
 
-Here are some ideas to get you started:
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+                <i class="fas fa-lock input-icon"></i>
+            </div>
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+            <div class="remember-forgot">
+                <div class="remember-me">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Lembrar-me</label>
+                </div>
+                <div class="forgot-password">
+                    <a href="#">Esqueceu a senha?</a>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-login">Entrar</button>
+
+            <div class="divider">ou</div>
+
+            <div class="social-login">
+                <button type="button" class="social-btn facebook">
+                    <img src="facebook.png" alt="">
+                    <i class="fab fa-facebook-f"></i>
+                </button>
+                <button type="button" class="social-btn google">
+                    <img src="google.png" alt="">
+                    <i class="fab fa-google"></i>
+                </button>
+                <button type="button" class="social-btn github">
+                    <img src="github.png" alt="">
+                    <i class="fab fa-github"></i>
+                </button>
+            </div>
+
+            <div class="register-link">
+                Não tem uma conta? <a href="cadastro.html">Cadastre-se</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const remember = document.getElementById('remember').checked;
+            
+            // Simulação de login - substitua por autenticação real
+            if (email && password.length >= 6) {
+                // Salva no localStorage se "Lembrar-me" estiver marcado
+                if (remember) {
+                    localStorage.setItem('portfolio_user_email', email);
+                }
+                
+                // Simulação de redirecionamento após login
+                showLoader();
+                setTimeout(() => {
+                    window.location.href = 'painel.html';
+                }, 1500);
+            } else {
+                alert('Por favor, preencha todos os campos corretamente!');
+            }
+        });
+
+        function showLoader() {
+            const loader = document.createElement('div');
+            loader.style.position = 'fixed';
+            loader.style.top = '0';
+            loader.style.left = '0';
+            loader.style.width = '100%';
+            loader.style.height = '100%';
+            loader.style.backgroundColor = 'rgba(10, 10, 10, 0.8)';
+            loader.style.zIndex = '1000';
+            loader.style.display = 'flex';
+            loader.style.justifyContent = 'center';
+            loader.style.alignItems = 'center';
+            
+            loader.innerHTML = `
+                <div style="
+                    width: 50px;
+                    height: 50px;
+                    border: 3px solid #6e48aa;
+                    border-top-color: transparent;
+                    border-radius: 50%;
+                    animation: spin 1s linear infinite;
+                "></div>
+            `;
+            
+            document.body.appendChild(loader);
+        }
+
+        // Preenche e-mail salvo se existir
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedEmail = localStorage.getItem('portfolio_user_email');
+            if (savedEmail) {
+                document.getElementById('email').value = savedEmail;
+                document.getElementById('remember').checked = true;
+            }
+        });
+    </script>
+</body>
+</html>
