@@ -8,38 +8,40 @@
 </head>
 <body>
     <header>
-        <div class="container">
+        <div class = "container">
             <nav>
-                <div class="logo">
+                <div class = "titulo">
                     <h1>TechMaster</h1>
                 </div>
-                <ul class="nav-links">
-                    <li><a href="#home">Início</a></li>
-                    <li><a href="#courses">Cursos</a></li>
-                    <li><a href="#features">Vantagens</a></li>
-                    <li><a href="#pricing">Preços</a></li>
-                    <li><a href="#testimonials">Depoimentos</a></li>
-                    <li><a href="#contact">Contato</a></li>
+                <ul class = "nav-links">
+                    <li><a href = "#home">Início</a></li>
+                    <li><a href = "#courses">Cursos</a></li>
+                    <li><a href = "#features">Vantagens</a></li>
+                    <li><a href = "#pricing">Preços</a></li>
+                    <li><a href = "#testimonials">Depoimentos</a></li>
+                    <li><a href = "#contact">Contato</a></li>
                 </ul>
-                <a href="#" class="btn">Entrar</a>
+                <div>
+                    <a href = "login.html" class = "btn">Entrar</a>
+                </div>
             </nav>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
+    <section class = "hero" id = "home">
+        <div class = "container">
+            <div class = "hero-content">
+                <div class = "hero-text">
                     <h2>Domine as tecnologias mais <span>requisitadas</span> do mercado</h2>
                     <p>Aprenda com especialistas e acelere sua carreira na área de tecnologia com nossos cursos práticos e atualizados.</p>
-                    <div class="hero-buttons">
-                        <a href="#courses" class="btn">Explorar Cursos</a>
-                        <a href="#pricing" class="btn btn-outline">Planos</a>
+                    <div class = "hero-buttons">
+                        <a href = "#courses" class="btn">Explorar Cursos</a>
+                        <a href = "#pricing" class="btn btn-outline">Planos</a>
                     </div>
                 </div>
-                <div class="hero-image">
-                    <img src="https://via.placeholder.com/600x400" alt="Estudante de programação">
+                <div class = "hero-image">
+                    <img src = "programaçao.png" alt = "Estudante de programação">
                 </div>
             </div>
         </div>
@@ -128,6 +130,73 @@
                         </div>
                     </div>
                 </div>
+                        <!-- Adicione esses cursos dentro da div .courses-grid, junto com os cursos existentes -->
+
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="reactnative.jpg" alt="Desenvolvimento Mobile">
+                    </div>
+                    <div class="course-content">
+                        <span class="course-category">Mobile</span>
+                        <h3>React Native Avançado</h3>
+                        <p>Aprenda a criar aplicativos mobile multiplataforma com React Native, Expo e Firebase.</p>
+                        <div class="course-meta">
+                            <div class="course-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>(945)</span>
+                            </div>
+                            <div class="course-price">R$ 547</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="IA.jpg" alt="Inteligência Artificial">
+                    </div>
+                    <div class="course-content">
+                        <span class="course-category">IA & Machine Learning</span>
+                        <h3>Fundamentos de IA</h3>
+                        <p>Domine Python, TensorFlow, Keras e os principais algoritmos de Machine Learning.</p>
+                        <div class="course-meta">
+                            <div class="course-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span>(1.1k)</span>
+                            </div>
+                            <div class="course-price">R$ 647</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="DEVOPS.jpg" alt="DevOps">
+                    </div>
+                    <div class="course-content">
+                        <span class="course-category">DevOps</span>
+                        <h3>DevOps Essencial</h3>
+                        <p>Aprenda Docker, Kubernetes, CI/CD e infraestrutura como código com AWS e Terraform.</p>
+                        <div class="course-meta">
+                            <div class="course-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>(832)</span>
+                            </div>
+                            <div class="course-price">R$ 697</div>
+                        </div>
+                    </div>
+                </div>
                 <div class="course-card">
                     <div class="course-image">
                         <img src="datascience.jpg" alt="Data Science">
@@ -171,6 +240,7 @@
                     </div>
                 </div>
             </div>
+            
             <div style="text-align: center; margin-top: 50px;">
                 <a href="#" class="btn">Ver Todos os Cursos</a>
             </div>
@@ -340,5 +410,116 @@
             </div>
         </div>
     </footer>
+                    <script>
+            // Função para o botão "Explorar Cursos"
+            document.querySelectorAll('a[href="#courses"]').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const coursesSection = document.getElementById('courses');
+                    coursesSection.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Efeito visual adicional (opcional)
+                    coursesSection.style.animation = 'highlight 2s';
+                    setTimeout(() => {
+                        coursesSection.style.animation = '';
+                    }, 2000);
+                });
+            });
+
+            // Função para o botão "Planos"
+            document.querySelectorAll('a[href="#pricing"]').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            // Função para o botão "Entrar" (login)
+            document.querySelectorAll('.btn:not([href]), .btn[href="#"]').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Simulação de modal de login
+                    const modal = document.createElement('div');
+                    modal.style.position = 'fixed';
+                    modal.style.top = '0';
+                    modal.style.left = '0';
+                    modal.style.width = '100%';
+                    modal.style.height = '100%';
+                    modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
+                    modal.style.zIndex = '2000';
+                    modal.style.display = 'flex';
+                    modal.style.justifyContent = 'center';
+                    modal.style.alignItems = 'center';
+                    
+                    modal.innerHTML = `
+                        <div style="background: #222; padding: 30px; border-radius: 10px; width: 90%; max-width: 400px;">
+                            <h2 style="margin-bottom: 20px; text-align: center;">Acessar Plataforma</h2>
+                            <form id="loginForm">
+                                <div style="margin-bottom: 15px;">
+                                    <label style="display: block; margin-bottom: 5px;">E-mail</label>
+                                    <input type="email" style="width: 100%; padding: 10px; background: #333; border: none; border-radius: 5px; color: white;">
+                                </div>
+                                <div style="margin-bottom: 20px;">
+                                    <label style="display: block; margin-bottom: 5px;">Senha</label>
+                                    <input type="password" style="width: 100%; padding: 10px; background: #333; border: none; border-radius: 5px; color: white;">
+                                </div>
+                                <button type="submit" style="width: 100%; padding: 12px; background: linear-gradient(to right, #6e48aa, #9d50bb); color: white; border: none; border-radius: 5px; cursor: pointer;">Entrar</button>
+                            </form>
+                            <button id="closeModal" style="margin-top: 15px; width: 100%; padding: 10px; background: transparent; color: #9d50bb; border: 1px solid #9d50bb; border-radius: 5px; cursor: pointer;">Fechar</button>
+                        </div>
+                    `;
+                    
+                    document.body.appendChild(modal);
+                    
+                    // Fechar modal
+                    document.getElementById('closeModal').addEventListener('click', () => {
+                        document.body.removeChild(modal);
+                    });
+                    
+                    // Simular login (apenas demonstração)
+                    document.getElementById('loginForm').addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        alert('Login realizado com sucesso! (simulação)');
+                        document.body.removeChild(modal);
+                    });
+                });
+            });
+
+            // Função para os botões "Assinar"
+            document.querySelectorAll('.pricing-card .btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const plan = this.closest('.pricing-card').querySelector('h3').textContent;
+                    alert(`Você selecionou o plano: ${plan}\n\nEsta é uma simulação. Em um site real, você seria redirecionado para a página de pagamento.`);
+                });
+            });
+
+            // Função para o botão "Comece Agora" (CTA)
+            document.querySelector('.cta .btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                // Simulação de redirecionamento para a página de cadastro
+                alert('Redirecionando para a página de cadastro... (simulação)');
+                // Em um site real: window.location.href = '/cadastro';
+            });
+
+            // Função para o botão "Ver Todos os Cursos"
+            document.querySelector('.courses .btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                // Simulação de carregamento de mais cursos
+                alert('Carregando todos os cursos disponíveis... (simulação)');
+                // Em um site real: carregaria dinamicamente mais cursos ou redirecionaria para página completa
+            });
+
+            // Adiciona a animação de highlight (para o efeito opcional)
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes highlight {
+                    0% { background-color: transparent; }
+                    50% { background-color: rgba(110, 72, 170, 0.2); }
+                    100% { background-color: transparent; }
+                }
+            `;
+            document.head.appendChild(style);
+        </script>
 </body>
 </html>
