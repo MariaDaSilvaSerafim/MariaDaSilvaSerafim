@@ -1,40 +1,263 @@
-        *{
-            margin: 0px;
-            padding: 0px;
-            align-items: center;
+:root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #a29bfe;
+            --accent-color: #fd79a8;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --success-color: #00b894;
+            --warning-color: #fdcb6e;
+            --danger-color: #d63031;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(90deg, #370fe9, #705eb3, #db34f1);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
-        }
-
-        .container{
-           background-color: aqua;
-            width: 500px;
-        }
-
-        .imc{
             align-items: center;
-            background-color: rgb(0, 0, 0);
-            width: 200px;
+            padding: 20px;
+        }
+
+        .bolha1{
+            background-color: white;
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            bottom: -100px;
+            animation: floatUp 19s linear infinite;
+        }
+
+        .bolha2{
+            background-color: rgb(226, 230, 233);
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            animation-delay: 100ms;
+            left: 60%;
+            position: absolute;
+            bottom: 90px;
+            animation: floatUp 25s linear infinite;
+        }
+        .bolha3{
+            background-color: rgb(251, 250, 255);
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            animation-delay: 100ms;
+            left: 30%;
+            bottom: 80px;
+            animation: floatUp 10s linear infinite;
+        }
+        .bolha4{
+            background-color: rgb(226, 230, 233);
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            animation-delay: 100ms;
+            left: 80%;
+            bottom: 90px;
+            animation: floatUp 15s linear infinite;
+        }
+
+        .bolha5{
+            background-color: rgb(226, 230, 233);
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            animation-delay: 100ms;
+            left: 20%;
+            bottom: 90px;
+            animation: floatUp 12s linear infinite;
+        }
+
+        .bolha6{
+            background-color: rgb(226, 230, 233);
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            animation-delay: 100ms;
+            left: 40%;
+            bottom: 90px;
+            animation: floatUp 18s linear infinite;
+        }
+
+        .bolha7{
+            background-color: rgb(226, 230, 233);
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            animation-delay: 100ms;
+            left: 10%;
+            bottom: 100px;
+            animation: floatUp 22s linear infinite;
+        }
+
+        .bolha8{
+            background-color: rgb(226, 230, 233);
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            animation-delay: 100ms;
+            left: 70%;
+            bottom: 90px;
+            animation: floatUp 20s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0%{
+                transform: translateY(0) scale(1);
+                opacity: 0.5;
+            }
+            100%{
+                transform: translateY(-120vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .description {
+            text-align: center;
+            color: var(--dark-color);
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .calculator-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
         .form-group {
-                    margin-bottom: 20px;
-                    position: relative;
-                }
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
 
-        .form-group input {
-            width: 100%;
-            padding: 14px 15px;
-            background-color: var(--gray);
-            border: 1px solid var(--light-gray);
+        label {
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+
+        input {
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
             border-radius: 8px;
-            color: var(--light);
             font-size: 1rem;
             transition: all 0.3s;
         }
 
-        .form-group input:focus {
+        input:focus {
+            border-color: var(--primary-color);
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(110, 72, 170, 0.3);
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
         }
+
+        .calculate-btn {
+            background: linear-gradient(90deg, #370fe9, #705eb3, #db34f1);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .calculate-btn:hover {
+            background-color: #5649c0;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        .result-container {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .result-title {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .result-value {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .result-message {
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .imc-scale {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .scale-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .scale-item span {
+            font-weight: 600;
+        }
+
+        .underweight { background-color: rgba(0, 184, 148, 0.1); border-left: 4px solid var(--success-color); }
+        .normal { background-color: rgba(0, 184, 148, 0.2); border-left: 4px solid var(--success-color); }
+        .overweight { background-color: rgba(253, 203, 110, 0.2); border-left: 4px solid var(--warning-color); }
+        .obesity1 { background-color: rgba(253, 121, 168, 0.2); border-left: 4px solid var(--accent-color); }
+        .obesity2 { background-color: rgba(214, 48, 49, 0.2); border-left: 4px solid var(--danger-color); }
+        .obesity3 { background-color: rgba(214, 48, 49, 0.3); border-left: 4px solid var(--danger-color); }
