@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MINHA CALCULADORA</title>
+    <link rel="stylesheet" href="calcu.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora</h1>
+        
+        <input class="display">
+            <div class="previous-operand" id="previousOperand"></div>
+            <div class="current-operand" id="currentOperand"></div>
+    </input>
+
+        <div class="buttons-grid">
+            <button class="all-clear" data-action="all-clear" onclick="allclean('AC')">AC</button>
+            <button class="clear" data-action="clear" onclick="clean('C')">C</button>
+            <button class="operator" data-action="divide" onclick="insertToDisplay('÷')">÷</button>
+            <button class="operator" data-action="multiply"onclick="insertToDisplay('x')">x</button>
+
+            <button class="number" data-action="7" onclick="insertToDisplay('7')">7</button>
+            <button class="number" data-action="8" onclick="insertToDisplay('8')">8</button>
+            <button class="number" data-action="9" onclick="insertToDisplay('9')">9</button>
+            <button class="operator" data-action="subtract" onclick="insertToDisplay('-')">-</button>
+
+            <button class="number" data-action="4" onclick="insertToDisplay('4')">4</button>
+            <button class="number" data-action="5" onclick="insertToDisplay('5')">5</button>
+            <button class="number" data-action="6" onclick="insertToDisplay('6')">6</button>
+            <button class="operator" data-action="add" onclick="insertToDisplay('+')">+</button>
+
+            <button class="number" data-action="1" onclick="insertToDisplay('1')">1</button>
+            <button class="number" data-action="2" onclick="insertToDisplay('2')">2</button>
+            <button class="number" data-action="3" onclick="insertToDisplay('3')">3</button>
+            <button class="operator" data-action="porcento" onclick="insertToDisplay('%')">%</button>
+
+            <button class="number" data-action="0" onclick="insertToDisplay('0')">0</button>
+            <button class="decimal" data-action="decimal" onclick="insertToDisplay('.')">.</button>
+            <button class="equals" data-action="equals" onclick="result()">=</button>
+        </div>
+
+        <script src="script.js"></script>
+</body>
+</html>
