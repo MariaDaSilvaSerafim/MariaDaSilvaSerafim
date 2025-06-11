@@ -20,3 +20,8 @@ function result(){
         display.value = "Error"
     }
 }
+
+function porcento(){
+    const display = document.querySelector('.display').value;
+    document.querySelector('.display').value = parseFloat(display)*0.01;
+}
