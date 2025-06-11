@@ -13,11 +13,10 @@ function clean(){
 
 function result(){
     const display = document.querySelector('.display')
+    
     try{
-
-        
-
+        display.value = eval(display.value)
     }catch{
-
+        display.value = "Error"
     }
 }
