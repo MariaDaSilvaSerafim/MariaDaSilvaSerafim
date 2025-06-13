@@ -52,7 +52,7 @@ h6{
 .portal-name {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #ff7300;
+  color: #1c52a1;
   margin-left: 10px;
 }
 
@@ -85,7 +85,7 @@ h6{
 }
 
 .hero {
-  background: #ff9100;
+  background: #1c52a1;
   color: white;
   padding: 80px 0;
   justify-content: center;
@@ -121,7 +121,7 @@ h6{
 }
 
 .btn-secondary {
-  background-color: #0056b3;
+  background-color: #276ab3;
   color: white;
   padding: 12px 25px;
   border-radius: 5px;
@@ -132,12 +132,11 @@ h6{
 }
 
 .btn-secondary:hover {
-  background-color: #249cff;
+  background-color: #2178be;
   transform: translateY(-2px);
 }
 
 .services {
-  background: linear-gradient(#ff7300, #249cff, #ff7300);
   padding: 80px 0;
 }
 
@@ -167,6 +166,26 @@ h6{
   transform: translateY(-10px);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
+
+.btn {
+  background-color: var(--senac-orange);
+  color: white;
+  padding: 12px 25px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-right: 15px;
+  transition: all 0.3s ease;
+  border: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn:hover {
+  background-color: #e05e1a;
+  transform: translateY(-2px);
+}
+
 .icon {
   width: 70px;
   height: 70px;
@@ -190,4 +209,40 @@ h6{
 .service-card h3 {
   color: var(--senac-blue);
   margin-bottom: 15px;
+}
+
+.senac-footer {
+  background-color: #1c52a1;
+  color: white;
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.senac-footer{
+  height: 200px;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: var(--senac-orange);
 }
