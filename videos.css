@@ -6,7 +6,7 @@
         }
 
         body {
-            background-color: #0f0f0f;
+            background-color: #0c1e2e;
             color: #fff;
         }
 
@@ -146,6 +146,10 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 16px;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
         }
 
         .short-item {
@@ -157,6 +161,9 @@
             width: 100%;
             border-radius: 8px;
             overflow: hidden;
+            align-items: center;
+            justify-content: center;
+            display: flex;
         }
 
         .short-thumbnail img {
@@ -377,4 +384,8 @@
             .shorts-container {
                 grid-template-columns: repeat(2, 1fr);
             }
+        }
+
+        hr{
+            width: 1430px;
         }
