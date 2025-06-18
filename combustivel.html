@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FuelCalc - Cálculo de Gastos com Combustível</title>
+    <link rel="stylesheet" href="combustivel.css">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">Drive<span>SmartSave</span></div>
+            <div class="logo">Cálculo de Gastos com <span>Combustível</span></div>
+        </div>
+    </header>
+
+    <img src="anuncio.webp" alt="" class="img">
+    
+    <main class="container">
+        <section class="calculator-container">
+            <h1>Calculadora de Gastos com Combustível</h1>
+            
+            <form id="fuelForm">
+                <div class="form-group">
+                    <label for="distance">Distância da Viagem (km):</label>
+                    <input type="number" id="distance" step="0.1" min="0" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="consumption">Consumo do Veículo (km/l):</label>
+                    <input type="number" id="consumption" step="0.1" min="0" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="fuelType">Tipo de Combustível:</label>
+                    <select id="fuelType" required>
+                        <option value="">Selecione...</option>
+                        <option value="gasolina">Gasolina</option>
+                        <option value="etanol">Etanol</option>
+                        <option value="diesel">Diesel</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="fuelPrice">Preço do Combustível (R$/l):</label>
+                    <input type="number" id="fuelPrice" step="0.01" min="0" required>
+                </div>
+                
+                <button type="submit">Calcular</button>
+            </form>
+            
+            <div class="result-container" id="resultContainer">
+                <h2>Resultado</h2>
+                <div class="result-item">
+                    <span>Combustível necessário:</span>
+                    <span id="fuelNeeded">-</span>
+                </div>
+                <div class="result-item">
+                    <span>Custo total:</span>
+                    <span id="totalCost">-</span>
+                </div>
+                <div class="result-item">
+                    <span>Custo por km:</span>
+                    <span id="costPerKm">-</span>
+                </div>
+            </div>
+        </section>
+        
+        <section class="history-container">
+            <h1>Histórico de Cálculos</h1>
+            <div id="historyList">
+                <!-- Histórico será preenchido por JavaScript -->
+                <p class="empty-history">Nenhum cálculo realizado ainda.</p>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 DriveSmartSave - Combina cálculo com educação sobre direção eficiente.</p>
+        </div>
+    </footer>
+
+    
+</body>
+</html>
