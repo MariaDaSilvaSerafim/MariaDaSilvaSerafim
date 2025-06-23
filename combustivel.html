@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FuelCalc - Cálculo de Gastos com Combustível</title>
+    <title>DRIVESMARTSTAVE - Cálculo de Gastos com Combustível</title>
     <link rel="stylesheet" href="combustivel.css">
 </head>
 <body>
@@ -13,8 +13,6 @@
             <div class="logo">Cálculo de Gastos com <span>Combustível</span></div>
         </div>
     </header>
-
-    <img src="anuncio.webp" alt="" class="img">
     
     <main class="container">
         <section class="calculator-container">
@@ -67,20 +65,208 @@
         </section>
         
         <section class="history-container">
-            <h1>Histórico de Cálculos</h1>
+            <div class="history-header">
+                <h1>Histórico de Cálculos</h1>
+                <button id="clearHistory" class="clear-history">Limpar Histórico</button>
+            </div>
             <div id="historyList">
                 <!-- Histórico será preenchido por JavaScript -->
                 <p class="empty-history">Nenhum cálculo realizado ainda.</p>
             </div>
         </section>
     </main>
-    
+
+    <div class="sobre">
+        <h1 class="h1">
+            Como utilizar a calculadora de combustível
+        </h1>
+        
+        <p class="p">
+            Para saber como se calcula o gasto de 
+            gasolina é muito simples, confira o passo a passo:
+        </p>
+
+        <li>
+            Coloque a distância que será percorrida em km;
+        </li>
+
+        <li>
+            Informe qual o consumo médio do veículo;
+        </li>
+
+        <li>
+            Agora informe qual o valor do litro de combustível que você pagou;
+        </li>
+
+        <li>
+            Clique em “Calcular”;
+        </li>
+
+        <li>
+            Você receberá um cálculo do consumo de combustível que será gasto. 
+            E também pode optar por colocar o valor gasto no caminho de volta.
+        </li>
+
+        <br>
+        <hr>
+        <br>
+
+        <h1 class="h1">
+            O que é combustível?
+        </h1>
+        
+        <p class="p">
+            Os combustíveis são substâncias que produzem calor em contato com o 
+            oxigênio e dessa forma são responsáveis por acionar os motores dos 
+            veículos.
+        </p>
+
+        <p>
+            Existem alguns tipos de combustíveis como diesel, gasolina e o 
+            etanol, mais conhecido como álcool.
+        </p>
+
+        <br>
+        <hr>
+        <br>
+
+        <h1 class="h1">
+            Como fazer cálculo de combustível?
+        </h1>
+        
+        <p class="p">
+            Para ter noção do quanto o seu veículo vai consumir e fazer o 
+            cálculo de gasto de combustível, é preciso saber quantos 
+            quilômetros o veículo faz com 1 litro.
+        </p>
+
+        <p>
+            Com as informações de quantos km o veículo faz com um litro, 
+            quantos quilômetros serão rodados e o valor que foi pago por 
+            cada litro, é possível <b>calcular quanto vai gastar de combustível</b> 
+            na viagem ou na rotina do dia a dia, por exemplo.
+        </p>
+
+        <br>
+        <hr>
+        <br>
+
+        <h1 class="h1">
+            Como calcular consumo de combustível por km?
+        </h1>
+        
+        <p class="p">
+            Para fazer o cálculo do consumo de combustível por km é fácil, 
+            você vai dividir o valor do litro da gasolina pelo consumo médio 
+            do veículo.
+        </p>
+
+        <b><p>Vejamos um exemplo:</p></b>
+
+        <p>
+            Com as informações de quantos km o veículo faz com um litro, 
+            quantos quilômetros serão rodados e o valor que foi pago por 
+            cada litro, é possível <b>calcular quanto vai gastar de combustível</b> 
+            na viagem ou na rotina do dia a dia, por exemplo.
+        </p>
+
+    </div>
+
     <footer>
         <div class="container">
-            <p>&copy; 2023 DriveSmartSave - Combina cálculo com educação sobre direção eficiente.</p>
+            <p>&copy; 2023 DriveSmartStave - Calculadora para te ajudar a econimizar mais dinheiro com combustível</p>
         </div>
     </footer>
-
     
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fuelForm = document.getElementById('fuelForm');
+            const resultContainer = document.getElementById('resultContainer');
+            const historyList = document.getElementById('historyList');
+            const clearHistoryBtn = document.getElementById('clearHistory');
+            
+            // Carrega o histórico do localStorage
+            let calculationsHistory = JSON.parse(localStorage.getItem('fuelCalculations')) || [];
+            updateHistoryList();
+            
+            fuelForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Obter valores do formulário
+                const distance = parseFloat(document.getElementById('distance').value);
+                const consumption = parseFloat(document.getElementById('consumption').value);
+                const fuelType = document.getElementById('fuelType').value;
+                const fuelPrice = parseFloat(document.getElementById('fuelPrice').value);
+                
+                // Calcular resultados
+                const fuelNeeded = distance / consumption;
+                const totalCost = fuelNeeded * fuelPrice;
+                const costPerKm = totalCost / distance;
+                
+                // Exibir resultados
+                document.getElementById('fuelNeeded').textContent = `${fuelNeeded.toFixed(2)} litros`;
+                document.getElementById('totalCost').textContent = `R$ ${totalCost.toFixed(2)}`;
+                document.getElementById('costPerKm').textContent = `R$ ${costPerKm.toFixed(2)}`;
+                
+                resultContainer.style.display = 'block';
+                
+                // Adicionar ao histórico
+                const calculation = {
+                    date: new Date().toLocaleString(),
+                    distance,
+                    consumption,
+                    fuelType,
+                    fuelPrice,
+                    fuelNeeded,
+                    totalCost,
+                    costPerKm
+                };
+                
+                calculationsHistory.unshift(calculation);
+                if (calculationsHistory.length > 5) {
+                    calculationsHistory = calculationsHistory.slice(0, 5);
+                }
+                
+                localStorage.setItem('fuelCalculations', JSON.stringify(calculationsHistory));
+                updateHistoryList();
+            });
+            
+            // Função para limpar o histórico
+            clearHistoryBtn.addEventListener('click', function() {
+                if (confirm('Tem certeza que deseja limpar todo o histórico de cálculos?')) {
+                    calculationsHistory = [];
+                    localStorage.removeItem('fuelCalculations');
+                    updateHistoryList();
+                }
+            });
+            
+            function updateHistoryList() {
+                if (calculationsHistory.length === 0) {
+                    historyList.innerHTML = '<p class="empty-history">Nenhum cálculo realizado ainda.</p>';
+                    return;
+                }
+                
+                historyList.innerHTML = '';
+                
+                calculationsHistory.forEach(calc => {
+                    const historyItem = document.createElement('div');
+                    historyItem.className = 'history-item';
+                    
+                    historyItem.innerHTML = `
+                        <div>
+                            <strong>${calc.date}</strong><br>
+                            ${calc.distance} km • ${calc.consumption} km/l • ${calc.fuelType}
+                        </div>
+                        <div style="text-align: right;">
+                            <strong>R$ ${calc.totalCost.toFixed(2)}</strong><br>
+                            ${calc.fuelNeeded.toFixed(2)} litros
+                        </div>
+                    `;
+                    
+                    historyList.appendChild(historyItem);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
