@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Finanças Pessoais</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class = "bolhas">
+        <div class = "bolha"></div>
+        <div class = "bolha2"></div>
+        <div class = "bolha3"></div>
+        <div class = "bolha4"></div>
+        <div class = "bolha5"></div>
+        <div class = "bolha6"></div>
+        <div class = "bolha7"></div>
+        <div class = "bolha8"></div>
+    </div>
+
+    <div class="container">
+        <h1>Crie sua conta</h1>
+        <p class="description">Preencha os campos abaixo para criar sua conta</p>
+        
+        <form class="register-form" id="registerForm">
+            <div class="form-group">
+                <label for="name">Nome completo</label>
+                <input class="dados" type="text" id="name" placeholder="Digite seu nome completo" required>
+                <div class="error" id="nameError">Nome é obrigatório</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input class="dados" type="email" id="email" placeholder="Digite seu e-mail" required>
+                <div class="error" id="emailError">E-mail inválido</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input class="dados" type="password" id="password" placeholder="Digite sua senha (mínimo 6 caracteres)" required>
+                <div class="error" id="passwordError">Senha deve ter pelo menos 6 caracteres</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmPassword">Confirme sua senha</label>
+                <input class="dados" type="password" id="confirmPassword" placeholder="Digite sua senha novamente" required>
+                <div class="error" id="confirmPasswordError">As senhas não coincidem</div>
+            </div>
+            
+            <button type="submit" class="register-btn">Cadastrar</button>
+        </form>
+        
+        <div class="link">
+            Já tem uma conta? <a href="index.html">Faça login</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            let isValid = true;
+            
+            // Validação de nome
+            if (name.trim() === '') {
+                document.getElementById('nameError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('nameError').style.display = 'none';
+            }
+            
+            // Validação de e-mail
+            if (!validateEmail(email)) {
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('emailError').style.display = 'none';
+            }
+            
+            // Validação de senha
+            if (!validatePassword(password)) {
+                document.getElementById('passwordError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('passwordError').style.display = 'none';
+            }
+            
+            // Confirmação de senha
+            if (password !== confirmPassword) {
+                document.getElementById('confirmPasswordError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('confirmPasswordError').style.display = 'none';
+            }
+            
+            if (isValid) {
+                const users = JSON.parse(localStorage.getItem('users'));
+                
+                // Verifica se e-mail já está cadastrado
+                if (users.some(u => u.email === email)) {
+                    alert('Este e-mail já está cadastrado!');
+                    return;
+                }
+                
+                // Adiciona novo usuário
+                const newUser = {
+                    name,
+                    email,
+                    password
+                };
+                
+                users.push(newUser);
+                localStorage.setItem('users', JSON.stringify(users));
+                alert('Cadastro realizado com sucesso!');
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>
