@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Finanças Pessoais</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class = "bolhas">
+        <div class = "bolha"></div>
+        <div class = "bolha2"></div>
+        <div class = "bolha3"></div>
+        <div class = "bolha4"></div>
+        <div class = "bolha5"></div>
+        <div class = "bolha6"></div>
+        <div class = "bolha7"></div>
+        <div class = "bolha8"></div>
+    </div>
+
+    <div class="container">
+        <h1>Login</h1>
+        <p class="description">Acesse sua conta para gerenciar suas finanças pessoais</p>
+        
+        <form class="login-form" id="loginForm">
+            <div class="form-group">
+                <label for="loginEmail">E-mail</label>
+                <input class="dados" type="email" id="loginEmail" placeholder="Digite seu e-mail" required>
+                <div class="error" id="loginEmailError">E-mail inválido</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="loginPassword">Senha</label>
+                <input class="dados" type="password" id="loginPassword" placeholder="Digite sua senha" required>
+                <div class="error" id="loginPasswordError">Senha deve ter pelo menos 6 caracteres</div>
+            </div>
+            
+            <button href="meusystem.html" type="submit" class="register-btn">Entrar</button>
+        </form>
+        
+        <div class="link">
+            Não tem uma conta? <a href="cadastro.html">Cadastre-se</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            let isValid = true;
+            
+            // Validação de e-mail
+            if (!validateEmail(email)) {
+                document.getElementById('loginEmailError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('loginEmailError').style.display = 'none';
+            }
+            
+            // Validação de senha
+            if (!validatePassword(password)) {
+                document.getElementById('loginPasswordError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('loginPasswordError').style.display = 'none';
+            }
+            
+            if (isValid) {
+                const users = JSON.parse(localStorage.getItem('users'));
+                const user = users.find(u => u.email === email && u.password === password);
+                
+                if (user) {
+                    localStorage.setItem('loggedInUser', JSON.stringify(user));
+                    window.location.href = 'financas.html';
+                } else {
+                    alert('E-mail ou senha incorretos!');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
