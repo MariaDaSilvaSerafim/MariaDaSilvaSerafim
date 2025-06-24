@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finanças Pessoais</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class = "bolhas">
+        <div class = "bolha"></div>
+        <div class = "bolha2"></div>
+        <div class = "bolha3"></div>
+        <div class = "bolha4"></div>
+        <div class = "bolha5"></div>
+        <div class = "bolha6"></div>
+        <div class = "bolha7"></div>
+        <div class = "bolha8"></div>
+    </div>
+
+    <div class="container">
+        <h1>Finanças Pessoais</h1>
+        <p class="description">
+            Controle seus gastos e veja quanto sobra do seu salário mensalmente.
+        </p>
+        
+        <form class="finance-form" id="financeForm">
+            <div class="form-group">
+                <label for="income">Renda Mensal (R$)</label>
+                <input type="number" id="income" placeholder="Digite sua renda mensal" step="0.01" min="0" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="expenses">Gastos Mensais (R$)</label>
+                <input type="number" id="expenses" placeholder="Digite seus gastos mensais" step="0.01" min="0" required>
+            </div>
+            
+            <button type="submit" class="calculate-btn">Calcular</button>
+        </form>
+        
+        <div class="result-container" id="resultContainer" style="display: none;">
+            <h3 class="result-title">Resultado Financeiro</h3>
+            
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Valor (R$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Renda Mensal</td>
+                        <td id="tableIncome">0,00</td>
+                    </tr>
+                    <tr>
+                        <td>Gastos Mensais</td>
+                        <td id="tableExpenses">0,00</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Saldo Disponível</strong></td>
+                        <td id="tableBalance"><strong>0,00</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="chart-container">
+                <canvas id="financeChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('financeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const income = parseFloat(document.getElementById('income').value);
+            const expenses = parseFloat(document.getElementById('expenses').value);
+            
+            if (expenses > income) {
+                alert('Seus gastos não podem ser maiores que sua renda!');
+                return;
+            }
+            
+            const balance = income - expenses;
+            const balancePercentage = (balance / income) * 100;
+            const expensesPercentage = (expenses / income) * 100;
+            
+            // Atualiza a tabela
+            document.getElementById('tableIncome').textContent = income.toFixed(2).replace('.', ',');
+            document.getElementById('tableExpenses').textContent = expenses.toFixed(2).replace('.', ',');
+            document.getElementById('tableBalance').textContent = balance.toFixed(2).replace('.', ',');
+            
+            // Mostra o container de resultados
+            document.getElementById('resultContainer').style.display = 'block';
+            
+            // Cria o gráfico
+            const ctx = document.getElementById('financeChart').getContext('2d');
+            
+            if (window.financeChart) {
+                window.financeChart.destroy();
+            }
+            
+            window.financeChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Saldo Disponível', 'Gastos'],
+                    datasets: [{
+                        data: [balance, expenses],
+                        backgroundColor: [
+                            '#4a90e2',
+                            '#e74c3c'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw || 0;
+                                    const percentage = ((value / income) * 100).toFixed(2);
+                                    return `${label}: R$ ${value.toFixed(2)} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+        
+        // Logout implícito ao fechar a página
+        window.addEventListener('beforeunload', function() {
+            localStorage.removeItem('loggedInUser');
+        });
+    </script>
+</body>
+</html>
