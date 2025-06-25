@@ -1,145 +1,946 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finanças Pessoais</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Aplicativo de controle financeiro pessoal para gerenciar receitas e despesas">
+    <title>Controle Financeiro Pessoal</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/chart.js" as="script">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="script.js" defer></script>
 </head>
 <body>
-    <div class = "bolhas">
-        <div class = "bolha"></div>
-        <div class = "bolha2"></div>
-        <div class = "bolha3"></div>
-        <div class = "bolha4"></div>
-        <div class = "bolha5"></div>
-        <div class = "bolha6"></div>
-        <div class = "bolha7"></div>
-        <div class = "bolha8"></div>
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-indigo-600 text-white shadow-md">
+            <div class="container mx-auto px-4 py-6">
+                <div class="flex justify-between items-center">
+                    <h1 class="text-2xl font-bold">💰 Controle Financeiro</h1>
+                    <div class="flex items-center space-x-4">
+                        <button id="theme-toggle" class="p-2 rounded-full hover:bg-indigo-500 transition-colors" aria-label="Alternar tema">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                            </svg>
+                        </button>
+                        <span id="current-month" class="font-medium text-lg"></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Left Column -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Summary Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Balance Card -->
+                        <div class="card rounded-lg shadow p-6 border-l-4 border-indigo-500">
+                            <h2 class="text-gray-500 dark:text-gray-300 font-medium">Saldo Atual</h2>
+                            <p id="balance-amount" class="text-3xl font-bold mt-2">R$ 0,00</p>
+                            <p id="balance-change" class="text-sm mt-1 text-gray-500 dark:text-gray-400"></p>
+                        </div>
+                        
+                        <!-- Income Card -->
+                        <div class="card rounded-lg shadow p-6 border-l-4 border-green-500">
+                            <h2 class="text-gray-500 dark:text-gray-300 font-medium">Receitas</h2>
+                            <p id="income-amount" class="text-3xl font-bold mt-2 text-green-600 dark:text-green-400">R$ 0,00</p>
+                            <p id="income-change" class="text-sm mt-1 text-gray-500 dark:text-gray-400"></p>
+                        </div>
+                        
+                        <!-- Expense Card -->
+                        <div class="card rounded-lg shadow p-6 border-l-4 border-red-500">
+                            <h2 class="text-gray-500 dark:text-gray-300 font-medium">Despesas</h2>
+                            <p id="expense-amount" class="text-3xl font-bold mt-2 text-red-600 dark:text-red-400">R$ 0,00</p>
+                            <p id="expense-change" class="text-sm mt-1 text-gray-500 dark:text-gray-400"></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Charts -->
+                    <div class="card rounded-lg shadow p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-lg font-semibold">Resumo Mensal</h2>
+                            <div class="flex space-x-2">
+                                <button id="chart-year" class="px-3 py-1 text-sm rounded-md bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-100">Anual</button>
+                                <button id="chart-month" class="px-3 py-1 text-sm rounded-md bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-200">Mensal</button>
+                            </div>
+                        </div>
+                        <div class="h-64">
+                            <canvas id="finance-chart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Transaction Form -->
+                    <div class="card rounded-lg shadow p-6">
+                        <h2 class="text-lg font-semibold mb-4">Adicionar Transação</h2>
+                        <form id="transaction-form" class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="transaction-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Descrição</label>
+                                    <input type="text" id="transaction-name" required 
+                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                </div>
+                                <div>
+                                    <label for="transaction-amount" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Valor</label>
+                                    <input type="number" step="0.01" id="transaction-amount" required 
+                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="transaction-date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Data</label>
+                                    <input type="date" id="transaction-date" required 
+                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                </div>
+                                <div>
+                                    <label for="transaction-type" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tipo</label>
+                                    <select id="transaction-type" required 
+                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                        <option value="income">Receita</option>
+                                        <option value="expense">Despesa</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="transaction-category" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Categoria</label>
+                                <select id="transaction-category" 
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                    <option value="alimentacao">Alimentação</option>
+                                    <option value="moradia">Moradia</option>
+                                    <option value="transporte">Transporte</option>
+                                    <option value="lazer">Lazer</option>
+                                    <option value="saude">Saúde</option>
+                                    <option value="educacao">Educação</option>
+                                    <option value="salario">Salário</option>
+                                    <option value="investimentos">Investimentos</option>
+                                    <option value="outros">Outros</option>
+                                </select>
+                            </div>
+                            <div class="pt-2">
+                                <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition">
+                                    Adicionar Transação
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Right Column -->
+                <div class="space-y-6">
+                    <!-- Recent Transactions -->
+                    <div class="card rounded-lg shadow p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-lg font-semibold">Transações Recentes</h2>
+                            <div class="flex space-x-2">
+                                <button id="filter-transactions" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300" aria-label="Filtrar transações">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                                <button id="export-transactions" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300" aria-label="Exportar transações">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="transactions-list" class="space-y-2 max-h-96 overflow-y-auto">
+                            <!-- Transactions will be added here dynamically -->
+                            <p class="text-center text-gray-500 py-6 dark:text-gray-400">Nenhuma transação encontrada</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Categories Breakdown -->
+                    <div class="card rounded-lg shadow p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-lg font-semibold">Categorias</h2>
+                            <div class="flex space-x-2">
+                                <button id="categories-income" class="px-2 py-1 text-xs rounded-md bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100">Receitas</button>
+                                <button id="categories-expense" class="px-2 py-1 text-xs rounded-md bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-200">Despesas</button>
+                            </div>
+                        </div>
+                        <div class="h-48">
+                            <canvas id="categories-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
 
-    <div class="container">
-        <h1>Finanças Pessoais</h1>
-        <p class="description">
-            Controle seus gastos e veja quanto sobra do seu salário mensalmente.
-        </p>
-        
-        <form class="finance-form" id="financeForm">
-            <div class="form-group">
-                <label for="income">Renda Mensal (R$)</label>
-                <input type="number" id="income" placeholder="Digite sua renda mensal" step="0.01" min="0" required>
+    <!-- Filter Modal -->
+    <div id="filter-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="card rounded-lg shadow-xl p-6 w-full max-w-md">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold">Filtrar Transações</h3>
+                <button id="close-filter-modal" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
             </div>
-            
-            <div class="form-group">
-                <label for="expenses">Gastos Mensais (R$)</label>
-                <input type="number" id="expenses" placeholder="Digite seus gastos mensais" step="0.01" min="0" required>
-            </div>
-            
-            <button type="submit" class="calculate-btn">Calcular</button>
-        </form>
-        
-        <div class="result-container" id="resultContainer" style="display: none;">
-            <h3 class="result-title">Resultado Financeiro</h3>
-            
-            <table class="results-table">
-                <thead>
-                    <tr>
-                        <th>Descrição</th>
-                        <th>Valor (R$)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Renda Mensal</td>
-                        <td id="tableIncome">0,00</td>
-                    </tr>
-                    <tr>
-                        <td>Gastos Mensais</td>
-                        <td id="tableExpenses">0,00</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Saldo Disponível</strong></td>
-                        <td id="tableBalance"><strong>0,00</strong></td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <div class="chart-container">
-                <canvas id="financeChart"></canvas>
-            </div>
+            <form id="filter-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tipo</label>
+                    <div class="flex space-x-4">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="filter-type" value="all" checked class="form-radio h-4 w-4 text-indigo-600">
+                            <span class="ml-2 text-gray-700 dark:text-gray-300">Todos</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="filter-type" value="income" class="form-radio h-4 w-4 text-indigo-600">
+                            <span class="ml-2 text-gray-700 dark:text-gray-300">Receitas</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="filter-type" value="expense" class="form-radio h-4 w-4 text-indigo-600">
+                            <span class="ml-2 text-gray-700 dark:text-gray-300">Despesas</span>
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <label for="filter-category" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Categoria</label>
+                    <select id="filter-category" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <option value="all">Todas</option>
+                        <option value="alimentacao">Alimentação</option>
+                        <option value="moradia">Moradia</option>
+                        <option value="transporte">Transporte</option>
+                        <option value="lazer">Lazer</option>
+                        <option value="saude">Saúde</option>
+                        <option value="educacao">Educação</option>
+                        <option value="salario">Salário</option>
+                        <option value="investimentos">Investimentos</option>
+                        <option value="outros">Outros</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="filter-start-date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Data Inicial</label>
+                        <input type="date" id="filter-start-date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    </div>
+                    <div>
+                        <label for="filter-end-date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Data Final</label>
+                        <input type="date" id="filter-end-date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    </div>
+                </div>
+                <div class="pt-2">
+                    <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition">
+                        Aplicar Filtros
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg transform translate-y-10 opacity-0 transition-all duration-300 hidden">
+        <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            <span id="toast-message">Transação adicionada com sucesso!</span>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50 hidden">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg flex items-center">
+            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span class="text-gray-700 dark:text-gray-300">Processando...</span>
         </div>
     </div>
 
     <script>
-        document.getElementById('financeForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Inicialização do aplicativo quando o DOM estiver carregado
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configuração inicial
+            const app = {
+                transactions: JSON.parse(localStorage.getItem('transactions')) || [],
+                currentFilter: 'all',
+                currentCategory: 'all',
+                startDate: null,
+                endDate: null,
+                chartType: 'month',
+                categoriesType: 'expense',
+                darkMode: localStorage.getItem('darkMode') === 'true' || false
+            };
             
-            const income = parseFloat(document.getElementById('income').value);
-            const expenses = parseFloat(document.getElementById('expenses').value);
-            
-            if (expenses > income) {
-                alert('Seus gastos não podem ser maiores que sua renda!');
-                return;
+            // Inicializar tema
+            function initTheme() {
+                if (app.darkMode) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
             }
             
-            const balance = income - expenses;
-            const balancePercentage = (balance / income) * 100;
-            const expensesPercentage = (expenses / income) * 100;
+            // Alternar tema
+            document.getElementById('theme-toggle').addEventListener('click', function() {
+                app.darkMode = !app.darkMode;
+                localStorage.setItem('darkMode', app.darkMode);
+                initTheme();
+            });
             
-            // Atualiza a tabela
-            document.getElementById('tableIncome').textContent = income.toFixed(2).replace('.', ',');
-            document.getElementById('tableExpenses').textContent = expenses.toFixed(2).replace('.', ',');
-            document.getElementById('tableBalance').textContent = balance.toFixed(2).replace('.', ',');
-            
-            // Mostra o container de resultados
-            document.getElementById('resultContainer').style.display = 'block';
-            
-            // Cria o gráfico
-            const ctx = document.getElementById('financeChart').getContext('2d');
-            
-            if (window.financeChart) {
-                window.financeChart.destroy();
+            // Inicializar data atual
+            function initCurrentMonth() {
+                const now = new Date();
+                const options = { month: 'long', year: 'numeric' };
+                document.getElementById('current-month').textContent = 
+                    now.toLocaleDateString('pt-BR', options).charAt(0).toUpperCase() + 
+                    now.toLocaleDateString('pt-BR', options).slice(1);
             }
             
-            window.financeChart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: ['Saldo Disponível', 'Gastos'],
-                    datasets: [{
-                        data: [balance, expenses],
-                        backgroundColor: [
-                            '#4a90e2',
-                            '#e74c3c'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const label = context.label || '';
-                                    const value = context.raw || 0;
-                                    const percentage = ((value / income) * 100).toFixed(2);
-                                    return `${label}: R$ ${value.toFixed(2)} (${percentage}%)`;
-                                }
-                            }
-                        }
+            // Formatar valor monetário
+            function formatMoney(value) {
+                return new Intl.NumberFormat('pt-BR', { 
+                    style: 'currency', 
+                    currency: 'BRL' 
+                }).format(value);
+            }
+            
+            // Adicionar transação
+            document.getElementById('transaction-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('transaction-name').value.trim();
+                const amount = parseFloat(document.getElementById('transaction-amount').value);
+                const date = document.getElementById('transaction-date').value;
+                const type = document.getElementById('transaction-type').value;
+                const category = document.getElementById('transaction-category').value;
+                
+                if (!name || isNaN(amount) || !date) {
+                    showToast('Preencha todos os campos corretamente', 'error');
+                    return;
+                }
+                
+                const transaction = {
+                    id: Date.now(),
+                    name,
+                    amount: type === 'expense' ? -Math.abs(amount) : Math.abs(amount),
+                    date,
+                    type,
+                    category
+                };
+                
+                app.transactions.push(transaction);
+                saveTransactions();
+                updateUI();
+                
+                // Reset form
+                this.reset();
+                document.getElementById('transaction-date').valueAsDate = new Date();
+                
+                showToast('Transação adicionada com sucesso!');
+            });
+            
+            // Salvar transações no localStorage
+            function saveTransactions() {
+                localStorage.setItem('transactions', JSON.stringify(app.transactions));
+            }
+            
+            // Atualizar toda a UI
+            function updateUI() {
+                updateSummary();
+                updateTransactionsList();
+                updateCharts();
+            }
+            
+            // Atualizar resumo (saldo, receitas, despesas)
+            function updateSummary() {
+                const filteredTransactions = filterTransactions();
+                
+                const income = filteredTransactions
+                    .filter(t => t.type === 'income')
+                    .reduce((sum, t) => sum + Math.abs(t.amount), 0);
+                
+                const expense = filteredTransactions
+                    .filter(t => t.type === 'expense')
+                    .reduce((sum, t) => sum + Math.abs(t.amount), 0);
+                
+                const balance = income - expense;
+                
+                document.getElementById('balance-amount').textContent = formatMoney(balance);
+                document.getElementById('income-amount').textContent = formatMoney(income);
+                document.getElementById('expense-amount').textContent = formatMoney(expense);
+                
+                // Adicionar variação em relação ao mês anterior
+                updateSummaryChanges(income, expense, balance);
+            }
+            
+            // Atualizar variações no resumo
+            function updateSummaryChanges(currentIncome, currentExpense, currentBalance) {
+                const now = new Date();
+                const currentMonth = now.getMonth();
+                const currentYear = now.getFullYear();
+                
+                // Mês anterior
+                const prevMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+                const prevYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+                
+                const prevMonthTransactions = app.transactions.filter(t => {
+                    const date = new Date(t.date);
+                    return date.getMonth() === prevMonth && date.getFullYear() === prevYear;
+                });
+                
+                const prevIncome = prevMonthTransactions
+                    .filter(t => t.type === 'income')
+                    .reduce((sum, t) => sum + Math.abs(t.amount), 0);
+                
+                const prevExpense = prevMonthTransactions
+                    .filter(t => t.type === 'expense')
+                    .reduce((sum, t) => sum + Math.abs(t.amount), 0);
+                
+                const prevBalance = prevIncome - prevExpense;
+                
+                // Calcular variações
+                function calculateChange(current, previous) {
+                    if (previous === 0) return '∞%';
+                    const change = ((current - previous) / previous) * 100;
+                    return change > 0 ? `+${change.toFixed(1)}%` : `${change.toFixed(1)}%`;
+                }
+                
+                const incomeChange = calculateChange(currentIncome, prevIncome);
+                const expenseChange = calculateChange(currentExpense, prevExpense);
+                const balanceChange = calculateChange(currentBalance, prevBalance);
+                
+                // Atualizar elementos
+                document.getElementById('income-change').textContent = `Mês anterior: ${formatMoney(prevIncome)} (${incomeChange})`;
+                document.getElementById('expense-change').textContent = `Mês anterior: ${formatMoney(prevExpense)} (${expenseChange})`;
+                document.getElementById('balance-change').textContent = `Mês anterior: ${formatMoney(prevBalance)} (${balanceChange})`;
+                
+                // Adicionar classes de cor baseado no valor
+                function setChangeColor(elementId, change) {
+                    const element = document.getElementById(elementId);
+                    element.classList.remove('text-green-600', 'text-red-600', 'text-gray-500');
+                    
+                    if (change.includes('+')) {
+                        element.classList.add('text-green-600');
+                    } else if (change.includes('-')) {
+                        element.classList.add('text-red-600');
+                    } else {
+                        element.classList.add('text-gray-500');
                     }
                 }
+                
+                setChangeColor('income-change', incomeChange);
+                setChangeColor('expense-change', expenseChange);
+                setChangeColor('balance-change', balanceChange);
+            }
+            
+            // Filtrar transações
+            function filterTransactions() {
+                let filtered = [...app.transactions];
+                
+                // Filtrar por tipo
+                if (app.currentFilter !== 'all') {
+                    filtered = filtered.filter(t => t.type === app.currentFilter);
+                }
+                
+                // Filtrar por categoria
+                if (app.currentCategory !== 'all') {
+                    filtered = filtered.filter(t => t.category === app.currentCategory);
+                }
+                
+                // Filtrar por data
+                if (app.startDate) {
+                    filtered = filtered.filter(t => new Date(t.date) >= new Date(app.startDate));
+                }
+                
+                if (app.endDate) {
+                    filtered = filtered.filter(t => new Date(t.date) <= new Date(app.endDate));
+                }
+                
+                return filtered;
+            }
+            
+            // Atualizar lista de transações
+            function updateTransactionsList() {
+                const transactionsList = document.getElementById('transactions-list');
+                const filteredTransactions = filterTransactions();
+                
+                if (filteredTransactions.length === 0) {
+                    transactionsList.innerHTML = '<p class="text-center text-gray-500 py-6 dark:text-gray-400">Nenhuma transação encontrada</p>';
+                    return;
+                }
+                
+                // Ordenar por data (mais recente primeiro)
+                filteredTransactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                transactionsList.innerHTML = filteredTransactions.map(transaction => `
+                    <div class="transaction-item p-3 rounded-md flex justify-between items-center border border-gray-100 dark:border-gray-700">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center 
+                                ${transaction.type === 'income' ? 'bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300' : 'bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-300'}">
+                                ${transaction.type === 'income' ? 
+                                    '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" /></svg>' : 
+                                    '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11 9V5.5a1.5 1.5 0 00-3 0V9H5.5a1.5 1.5 0 000 3H8v3.5a1.5 1.5 0 003 0V12h2.5a1.5 1.5 0 000-3H11z" clip-rule="evenodd" /></svg>'}
+                            </div>
+                            <div class="ml-3">
+                                <p class="font-medium">${transaction.name}</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    ${new Date(transaction.date).toLocaleDateString('pt-BR')} • 
+                                    ${transaction.category.charAt(0).toUpperCase() + transaction.category.slice(1)}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-medium ${transaction.type === 'income' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}">
+                                ${formatMoney(transaction.amount)}
+                            </p>
+                            <div class="flex space-x-2 mt-1 justify-end">
+                                <button onclick="editTransaction(${transaction.id})" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                    </svg>
+                                </button>
+                                <button onclick="deleteTransaction(${transaction.id})" class="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Atualizar gráficos
+            function updateCharts() {
+                updateFinanceChart();
+                updateCategoriesChart();
+            }
+            
+            // Gráfico financeiro (receitas x despesas)
+            function updateFinanceChart() {
+                const ctx = document.getElementById('finance-chart').getContext('2d');
+                
+                // Dados para o gráfico mensal
+                if (app.chartType === 'month') {
+                    const now = new Date();
+                    const currentMonth = now.getMonth();
+                    const currentYear = now.getFullYear();
+                    
+                    // Filtrar transações do mês atual
+                    const monthTransactions = app.transactions.filter(t => {
+                        const date = new Date(t.date);
+                        return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+                    });
+                    
+                    // Agrupar por dia
+                    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+                    const labels = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+                    
+                    const incomeData = Array(daysInMonth).fill(0);
+                    const expenseData = Array(daysInMonth).fill(0);
+                    
+                    monthTransactions.forEach(t => {
+                        const day = new Date(t.date).getDate() - 1;
+                        if (t.type === 'income') {
+                            incomeData[day] += t.amount;
+                        } else {
+                            expenseData[day] += Math.abs(t.amount);
+                        }
+                    });
+                    
+                    renderFinanceChart(ctx, labels, incomeData, expenseData, 'Dia');
+                } 
+                // Dados para o gráfico anual
+                else {
+                    const now = new Date();
+                    const currentYear = now.getFullYear();
+                    const labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+                    
+                    const incomeData = Array(12).fill(0);
+                    const expenseData = Array(12).fill(0);
+                    
+                    app.transactions.forEach(t => {
+                        const date = new Date(t.date);
+                        if (date.getFullYear() === currentYear) {
+                            const month = date.getMonth();
+                            if (t.type === 'income') {
+                                incomeData[month] += t.amount;
+                            } else {
+                                expenseData[month] += Math.abs(t.amount);
+                            }
+                        }
+                    });
+                    
+                    renderFinanceChart(ctx, labels, incomeData, expenseData, 'Mês');
+                }
+            }
+            
+            // Renderizar gráfico financeiro
+            function renderFinanceChart(ctx, labels, incomeData, expenseData, xAxisLabel) {
+                // Destruir gráfico anterior se existir
+                if (window.financeChart) {
+                    window.financeChart.destroy();
+                }
+                
+                window.financeChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Receitas',
+                                data: incomeData,
+                                backgroundColor: '#10b981',
+                                borderRadius: 4
+                            },
+                            {
+                                label: 'Despesas',
+                                data: expenseData,
+                                backgroundColor: '#ef4444',
+                                borderRadius: 4
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                grid: {
+                                    display: false
+                                },
+                                title: {
+                                    display: true,
+                                    text: xAxisLabel
+                                }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Valor (R$)'
+                                },
+                                ticks: {
+                                    callback: function(value) {
+                                        return 'R$ ' + value.toLocaleString('pt-BR');
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.dataset.label + ': ' + formatMoney(context.raw);
+                                    }
+                                }
+                            },
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    boxWidth: 12,
+                                    padding: 16,
+                                    usePointStyle: true,
+                                    pointStyle: 'circle'
+                                }
+                            }
+                        },
+                        interaction: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    }
+                });
+            }
+            
+            // Gráfico de categorias
+            function updateCategoriesChart() {
+                const ctx = document.getElementById('categories-chart').getContext('2d');
+                const filteredTransactions = filterTransactions();
+                
+                // Mapeamento de categorias para cores e labels
+                const categoryMap = {
+                    alimentacao: { label: 'Alimentação', color: '#f59e0b' },
+                    moradia: { label: 'Moradia', color: '#6366f1' },
+                    transporte: { label: 'Transporte', color: '#3b82f6' },
+                    lazer: { label: 'Lazer', color: '#ec4899' },
+                    saude: { label: 'Saúde', color: '#10b981' },
+                    educacao: { label: 'Educação', color: '#84cc16' },
+                    salario: { label: 'Salário', color: '#06b6d4' },
+                    investimentos: { label: 'Investimentos', color: '#8b5cf6' },
+                    outros: { label: 'Outros', color: '#64748b' }
+                };
+                
+                // Agrupar por categoria
+                const categoryData = {};
+                
+                filteredTransactions.forEach(t => {
+                    // Filtrar por tipo se necessário
+                    if ((app.categoriesType === 'income' && t.type !== 'income') || 
+                        (app.categoriesType === 'expense' && t.type !== 'expense')) {
+                        return;
+                    }
+                    
+                    if (!categoryData[t.category]) {
+                        categoryData[t.category] = 0;
+                    }
+                    categoryData[t.category] += Math.abs(t.amount);
+                });
+                
+                // Converter para arrays para o Chart.js
+                const labels = [];
+                const data = [];
+                const backgroundColors = [];
+                
+                Object.entries(categoryData).forEach(([category, amount]) => {
+                    if (amount > 0) {
+                        labels.push(categoryMap[category].label);
+                        data.push(amount);
+                        backgroundColors.push(categoryMap[category].color);
+                    }
+                });
+                
+                // Se não houver dados, mostrar mensagem
+                if (data.length === 0) {
+                    if (window.categoriesChart) {
+                        window.categoriesChart.destroy();
+                    }
+                    return;
+                }
+                
+                // Destruir gráfico anterior se existir
+                if (window.categoriesChart) {
+                    window.categoriesChart.destroy();
+                }
+                
+                window.categoriesChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: data,
+                            backgroundColor: backgroundColors,
+                            borderWidth: 0,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: {
+                                    boxWidth: 12,
+                                    padding: 16,
+                                    usePointStyle: true,
+                                    pointStyle: 'circle'
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const label = context.label || '';
+                                        const value = context.raw || 0;
+                                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                        const percentage = Math.round((value / total) * 100);
+                                        return `${label}: ${formatMoney(value)} (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        },
+                        cutout: '65%'
+                    }
+                });
+            }
+            
+            // Mostrar toast notification
+            function showToast(message, type = 'success') {
+                const toast = document.getElementById('toast');
+                const toastMessage = document.getElementById('toast-message');
+                
+                toastMessage.textContent = message;
+                
+                // Definir cor baseada no tipo
+                toast.className = 'fixed bottom-4 right-4 text-white px-4 py-2 rounded-md shadow-lg transform translate-y-10 opacity-0 transition-all duration-300 flex items-center';
+                
+                if (type === 'success') {
+                    toast.classList.add('bg-green-500');
+                } else if (type === 'error') {
+                    toast.classList.add('bg-red-500');
+                } else {
+                    toast.classList.add('bg-indigo-500');
+                }
+                
+                toast.classList.remove('hidden');
+                
+                // Mostrar
+                setTimeout(() => {
+                    toast.classList.remove('translate-y-10', 'opacity-0');
+                    toast.classList.add('translate-y-0', 'opacity-100');
+                }, 10);
+                
+                // Esconder após 3 segundos
+                setTimeout(() => {
+                    toast.classList.add('translate-y-10', 'opacity-0');
+                    setTimeout(() => {
+                        toast.classList.add('hidden');
+                    }, 300);
+                }, 3000);
+            }
+            
+            // Mostrar/ocultar loading overlay
+            function setLoading(show) {
+                const overlay = document.getElementById('loading-overlay');
+                if (show) {
+                    overlay.classList.remove('hidden');
+                } else {
+                    overlay.classList.add('hidden');
+                }
+            }
+            
+            // Alternar entre gráficos mensal/anual
+            document.getElementById('chart-year').addEventListener('click', function() {
+                app.chartType = 'year';
+                updateCharts();
+                this.classList.remove('bg-gray-200', 'text-gray-700', 'dark:bg-gray-700', 'dark:text-gray-200');
+                this.classList.add('bg-indigo-100', 'text-indigo-800', 'dark:bg-indigo-900', 'dark:text-indigo-100');
+                document.getElementById('chart-month').classList.remove('bg-indigo-100', 'text-indigo-800', 'dark:bg-indigo-900', 'dark:text-indigo-100');
+                document.getElementById('chart-month').classList.add('bg-gray-200', 'text-gray-700', 'dark:bg-gray-700', 'dark:text-gray-200');
             });
-        });
-        
-        // Logout implícito ao fechar a página
-        window.addEventListener('beforeunload', function() {
-            localStorage.removeItem('loggedInUser');
+            
+            document.getElementById('chart-month').addEventListener('click', function() {
+                app.chartType = 'month';
+                updateCharts();
+                this.classList.remove('bg-gray-200', 'text-gray-700', 'dark:bg-gray-700', 'dark:text-gray-200');
+                this.classList.add('bg-indigo-100', 'text-indigo-800', 'dark:bg-indigo-900', 'dark:text-indigo-100');
+                document.getElementById('chart-year').classList.remove('bg-indigo-100', 'text-indigo-800', 'dark:bg-indigo-900', 'dark:text-indigo-100');
+                document.getElementById('chart-year').classList.add('bg-gray-200', 'text-gray-700', 'dark:bg-gray-700', 'dark:text-gray-200');
+            });
+            
+            // Alternar entre categorias de receitas/despesas
+            document.getElementById('categories-income').addEventListener('click', function() {
+                app.categoriesType = 'income';
+                updateCharts();
+                this.classList.remove('bg-gray-200', 'text-gray-700', 'dark:bg-gray-700', 'dark:text-gray-200');
+                this.classList.add('bg-green-100', 'text-green-800', 'dark:bg-green-900', 'dark:text-green-100');
+                document.getElementById('categories-expense').classList.remove('bg-green-100', 'text-green-800', 'dark:bg-green-900', 'dark:text-green-100');
+                document.getElementById('categories-expense').classList.add('bg-gray-200', 'text-gray-700', 'dark:bg-gray-700', 'dark:text-gray-200');
+            });
+            
+            document.getElementById('categories-expense').addEventListener('click', function() {
+                app.categoriesType = 'expense';
+                updateCharts();
+                this.classList.remove('bg-gray-200', 'text-gray-700', 'dark:bg-gray-700', 'dark:text-gray-200');
+                this.classList.add('bg-green-100', 'text-green-800', 'dark:bg-green-900', 'dark:text-green-100');
+                document.getElementById('categories-income').classList.remove('bg-green-100', 'text-green-800', 'dark:bg-green-900', 'dark:text-green-100');
+                document.getElementById('categories-income').classList.add('bg-gray-200', 'text-gray-700', 'dark:bg-gray-700', 'dark:text-gray-200');
+            });
+            
+            // Modal de filtro
+            document.getElementById('filter-transactions').addEventListener('click', function() {
+                document.getElementById('filter-modal').classList.remove('hidden');
+            });
+            
+            document.getElementById('close-filter-modal').addEventListener('click', function() {
+                document.getElementById('filter-modal').classList.add('hidden');
+            });
+            
+            document.getElementById('filter-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                app.currentFilter = document.querySelector('input[name="filter-type"]:checked').value;
+                app.currentCategory = document.getElementById('filter-category').value;
+                app.startDate = document.getElementById('filter-start-date').value;
+                app.endDate = document.getElementById('filter-end-date').value;
+                
+                updateUI();
+                document.getElementById('filter-modal').classList.add('hidden');
+            });
+            
+            // Exportar transações
+            document.getElementById('export-transactions').addEventListener('click', function() {
+                const filteredTransactions = filterTransactions();
+                
+                if (filteredTransactions.length === 0) {
+                    showToast('Nenhuma transação para exportar', 'error');
+                    return;
+                }
+                
+                // Converter para CSV
+                let csv = 'Data,Descrição,Valor,Tipo,Categoria\n';
+                
+                filteredTransactions.forEach(t => {
+                    csv += `"${new Date(t.date).toLocaleDateString('pt-BR')}",`;
+                    csv += `"${t.name}",`;
+                    csv += `"${formatMoney(t.amount)}",`;
+                    csv += `"${t.type === 'income' ? 'Receita' : 'Despesa'}",`;
+                    csv += `"${t.category.charAt(0).toUpperCase() + t.category.slice(1)}"\n`;
+                });
+                
+                // Criar link de download
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.setAttribute('href', url);
+                link.setAttribute('download', `transacoes_${new Date().toLocaleDateString('pt-BR')}.csv`);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                showToast('Transações exportadas com sucesso!');
+            });
+            
+            // Funções globais para editar/excluir transações
+            window.editTransaction = function(id) {
+                const transaction = app.transactions.find(t => t.id === id);
+                if (!transaction) return;
+                
+                // Preencher formulário
+                document.getElementById('transaction-name').value = transaction.name;
+                document.getElementById('transaction-amount').value = Math.abs(transaction.amount);
+                document.getElementById('transaction-date').value = transaction.date;
+                document.getElementById('transaction-type').value = transaction.type;
+                document.getElementById('transaction-category').value = transaction.category;
+                
+                // Remover a transação
+                app.transactions = app.transactions.filter(t => t.id !== id);
+                saveTransactions();
+                
+                // Rolar para o formulário
+                document.getElementById('transaction-form').scrollIntoView({ behavior: 'smooth' });
+                
+                showToast('Transação carregada para edição');
+            };
+            
+            window.deleteTransaction = function(id) {
+                if (!confirm('Tem certeza que deseja excluir esta transação?')) return;
+                
+                app.transactions = app.transactions.filter(t => t.id !== id);
+                saveTransactions();
+                updateUI();
+                
+                showToast('Transação excluída com sucesso');
+            };
+            
+            // Inicialização
+            function init() {
+                initTheme();
+                initCurrentMonth();
+                
+                // Definir data atual como padrão no formulário
+                document.getElementById('transaction-date').valueAsDate = new Date();
+                
+                // Carregar dados iniciais
+                updateUI();
+            }
+            
+            init();
         });
     </script>
 </body>
