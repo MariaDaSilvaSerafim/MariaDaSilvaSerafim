@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nubank - Revolucionando o sistema financeiro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --purple: #820ad1;
+            --dark-purple: #5a0d91;
+            --light-purple: #a45cdd;
+            --pink: #e61e8c;
+            --white: #ffffff;
+            --gray: #f5f5f5;
+            --dark-gray: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--gray);
+            color: var(--dark-gray);
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--purple);
+            color: var(--white);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .logo span {
+            color: var(--pink);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--light-purple);
+        }
+        
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Main Content */
+        .main-container {
+            max-width: 1200px;
+            margin: 80px auto 0;
+            padding: 20px;
+        }
+        
+        /* Página específica escondida por padrão */
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 50px 0;
+        }
+        
+        .hero-content {
+            flex: 1;
+            padding-right: 40px;
+        }
+        
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--dark-purple);
+        }
+        
+        .hero-content p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--purple);
+            color: var(--white);
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--dark-purple);
+        }
+        
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 60px 0;
+            background-color: var(--white);
+            border-radius: 10px;
+            margin: 40px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--dark-purple);
+            font-size: 36px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+        
+        .feature-card {
+            background-color: var(--gray);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            color: var(--purple);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark-purple);
+        }
+        
+        /* Account Overview */
+        .account-overview {
+            background-color: var(--purple);
+            color: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+        
+        .account-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .account-header h2 {
+            font-size: 28px;
+        }
+        
+        .account-balance {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .account-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .account-btn {
+            background-color: var(--white);
+            color: var(--purple);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .account-btn:hover {
+            background-color: var(--light-purple);
+            color: var(--white);
+        }
+        
+        /* Cards Section */
+        .cards-section {
+            margin-bottom: 40px;
+        }
+        
+        .cards-slider {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 20px 0;
+        }
+        
+        .card {
+            min-width: 300px;
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            color: var(--white);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .card-type {
+            font-weight: bold;
+        }
+        
+        .card-chip {
+            width: 40px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+        }
+        
+        .card-number {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            font-size: 18px;
+        }
+        
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .card-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-info-label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        /* Transactions */
+        .transactions {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .transactions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .transactions-list {
+            list-style: none;
+        }
+        
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .transaction-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .transaction-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--light-purple);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--white);
+        }
+        
+        .transaction-details h4 {
+            margin-bottom: 5px;
+        }
+        
+        .transaction-details p {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .transaction-amount {
+            font-weight: bold;
+        }
+        
+        .positive {
+            color: #00a86b;
+        }
+        
+        .negative {
+            color: #ff3b30;
+        }
+        
+        /* Páginas específicas */
+        .card-page, .account-page, .rewards-page, 
+        .loans-page, .investments-page, .about-page {
+            padding: 40px 0;
+        }
+        
+        .page-hero {
+            background-color: var(--purple);
+            color: var(--white);
+            padding: 60px 0;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .page-hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        
+        .page-content {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .page-content h2 {
+            color: var(--dark-purple);
+            margin-bottom: 20px;
+        }
+        
+        .page-content p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .benefits-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+        
+        .benefits-list li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .benefits-list li:before {
+            content: "\f00c";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--purple);
+        }
+        
+        /* Formulários */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .form-submit {
+            background-color: var(--purple);
+            color: var(--white);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .form-submit:hover {
+            background-color: var(--dark-purple);
+        }
+        
+        /* Tabelas */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .data-table th, 
+        .data-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .data-table th {
+            background-color: var(--purple);
+            color: var(--white);
+        }
+        
+        .data-table tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-purple);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: var(--light-purple);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--white);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: var(--white);
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--light-purple);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 15px;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background-color: var(--purple);
+                flex-direction: column;
+                padding: 20px;
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .menu-btn {
+                display: block;
+            }
+            
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px 0;
+            }
+            
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 30px;
+            }
+            
+            .account-actions {
+                flex-direction: column;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-hero h1 {
+                font-size: 32px;
+            }
+            
+            .page-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">nu<span>bank</span></div>
+            <nav>
+                <ul id="main-menu">
+                    <li><a href="#" class="nav-link" data-page="home">Página Inicial</a></li>
+                    <li><a href="#" class="nav-link" data-page="card">Cartão</a></li>
+                    <li><a href="#" class="nav-link" data-page="account">Conta</a></li>
+                    <li><a href="#" class="nav-link" data-page="rewards">Rewards</a></li>
+                    <li><a href="#" class="nav-link" data-page="loans">Empréstimos</a></li>
+                    <li><a href="#" class="nav-link" data-page="investments">Investimentos</a></li>
+                    <li><a href="#" class="nav-link" data-page="about">Sobre nós</a></li>
+                </ul>
+            </nav>
+            <button class="menu-btn" id="menu-toggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Página Inicial -->
+        <section class="page active" id="home-page">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>O futuro é roxinho. Seja bem-vindo ao Nubank.</h1>
+                    <p>Conta digital, cartão de crédito sem anuidade, investimentos e mais: tudo em um só app.</p>
+                    <a href="#" class="cta-button" id="request-card-btn">Peça seu cartão</a>
+                </div>
+                <div class="hero-image">
+                    <img src="https://nubank.com.br/images-cms/1648144893-nuconta-inclined-device-xl.png?w=1152&dpr=1&auto=compress&fm=webp" alt="Nubank App">
+                </div>
+            </section>
+            
+            <!-- Account Overview -->
+            <section class="account-overview">
+                <div class="account-header">
+                    <h2>Minha conta</h2>
+                    <div class="account-actions">
+                        <button class="account-btn" id="transfer-btn">Transferir</button>
+                        <button class="account-btn" id="deposit-btn">Depositar</button>
+                        <button class="account-btn" id="pay-btn">Pagar</button>
+                    </div>
+                </div>
+                <div class="account-balance">R$ 5.247,89</div>
+                <p>Saldo disponível</p>
+            </section>
+            
+            <!-- Cards Section -->
+            <section class="cards-section">
+                <h2 class="section-title">Seus cartões</h2>
+                <div class="cards-slider">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-type">Nubank</span>
+                            <div class="card-chip"></div>
+                        </div>
+                        <div class="card-number">
+                            <span>••••</span>
+                            <span>••••</span>
+                            <span>••••</span>
+                            <span>1234</span>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-info">
+                                <span class="card-info-label">Titular</span>
+                                <span>FULANO DA SILVA</span>
+                            </div>
+                            <div class="card-info">
+                                <span class="card-info-label">Válido até</span>
+                                <span>05/28</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="background: linear-gradient(135deg, #000000, #333333);">
+                        <div class="card-header">
+                            <span class="card-type">Nubank Ultravioleta</span>
+                            <div class="card-chip"></div>
+                        </div>
+                        <div class="card-number">
+                            <span>••••</span>
+                            <span>••••</span>
+                            <span>••••</span>
+                            <span>5678</span>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-info">
+                                <span class="card-info-label">Titular</span>
+                                <span>FULANO DA SILVA</span>
+                            </div>
+                            <div class="card-info">
+                                <span class="card-info-label">Válido até</span>
+                                <span>09/29</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Transactions -->
+            <section class="transactions">
+                <div class="transactions-header">
+                    <h2>Últimas transações</h2>
+                    <a href="#" id="view-all-transactions">Ver todas</a>
+                </div>
+                <ul class="transactions-list">
+                    <li class="transaction-item">
+                        <div class="transaction-info">
+                            <div class="transaction-icon">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                            <div class="transaction-details">
+                                <h4>Amazon.com.br</h4>
+                                <p>Hoje, 14:30 • Cartão final 1234</p>
+                            </div>
+                        </div>
+                        <div class="transaction-amount negative">- R$ 89,90</div>
+                    </li>
+                    <li class="transaction-item">
+                        <div class="transaction-info">
+                            <div class="transaction-icon">
+                                <i class="fas fa-arrow-down"></i>
+                            </div>
+                            <div class="transaction-details">
+                                <h4>Transferência recebida</h4>
+                                <p>Ontem, 09:15 • De João Silva</p>
+                            </div>
+                        </div>
+                        <div class="transaction-amount positive">+ R$ 150,00</div>
+                    </li>
+                    <li class="transaction-item">
+                        <div class="transaction-info">
+                            <div class="transaction-icon">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <div class="transaction-details">
+                                <h4>Restaurante Sabor da Casa</h4>
+                                <p>Ontem, 20:45 • Cartão final 1234</p>
+                            </div>
+                        </div>
+                        <div class="transaction-amount negative">- R$ 67,50</div>
+                    </li>
+                    <li class="transaction-item">
+                        <div class="transaction-info">
+                            <div class="transaction-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="transaction-details">
+                                <h4>Saque</h4>
+                                <p>25/05/2023 • Caixa 24h</p>
+                            </div>
+                        </div>
+                        <div class="transaction-amount negative">- R$ 200,00</div>
+                    </li>
+                </ul>
+            </section>
+            
+            <!-- Features Section -->
+            <section class="features">
+                <h2 class="section-title">Por que escolher o Nubank?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h3>Cartão sem anuidade</h3>
+                        <p>Cartão de crédito sem anuidade e com programa de rewards que devolve parte do que você gastou.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>Conta 100% digital</h3>
+                        <p>Abra sua conta em minutos pelo celular, sem papelada e sem burocracia.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3>Segurança</h3>
+                        <p>Controle seu cartão pelo app, bloqueie compras internacionais e muito mais.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <h3>Taxas justas</h3>
+                        <p>Sem tarifas escondidas. Tudo transparente e fácil de entender.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>Atendimento humano</h3>
+                        <p>Suporte rápido e eficiente quando você precisar, sem robôs.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Investimentos</h3>
+                        <p>Comece a investir com pouco dinheiro e sem complicação.</p>
+                    </div>
+                </div>
+            </section>
+        </section>
+        
+        <!-- Página do Cartão -->
+        <section class="page card-page" id="card-page">
+            <div class="page-hero">
+                <h1>Cartão Nubank</h1>
+                <p>Sem anuidade, sem complicação e com muitos benefícios</p>
+            </div>
+            
+            <div class="page-content">
+                <h2>Seu cartão Nubank</h2>
+                <p>O cartão de crédito do Nubank não tem anuidade e você ainda pode controlar todas as compras pelo aplicativo, bloqueando o cartão com um toque se precisar.</p>
+                
+                <div class="cards-slider" style="margin: 30px 0;">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-type">Nubank</span>
+                            <div class="card-chip"></div>
+                        </div>
+                        <div class="card-number">
+                            <span>••••</span>
+                            <span>••••</span>
+                            <span>••••</span>
+                            <span>1234</span>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-info">
+                                <span class="card-info-label">Titular</span>
+                                <span>FULANO DA SILVA</span>
+                            </div>
+                            <div class="card-info">
+                                <span class="card-info-label">Válido até</span>
+                                <span>05/28</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="account-actions" style="margin-bottom: 30px;">
+                    <button class="account-btn" id="block-card-btn">Bloquear Cartão</button>
+                    <button class="account-btn" id="change-limit-btn">Alterar Limite</button>
+                    <button class="account-btn" id="virtual-card-btn">Cartão Virtual</button>
+                </div>
+                
+                <h2>Fatura atual</h2>
+                <div class="account-balance" style="color: var(--dark-purple); margin: 20px 0;">R$ 1.245,67</div>
+                <p>Vencimento: 10/06/2023</p>
+                
+                <button class="form-submit" style="margin-top: 20px;" id="pay-invoice-btn">Pagar Fatura</button>
+                
+                <h2 style="margin-top: 40px;">Benefícios do seu cartão</h2>
+                <ul class="benefits-list">
+                    <li>Sem anuidade</li>
+                    <li>Programa de rewards com cashback</li>
+                    <li>Seguro de compras</li>
+                    <li>Proteção contra fraudes</li>
+                    <li>Cartão virtual para compras online</li>
+                    <li>Limite ajustável pelo app</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Página da Conta -->
+        <section class="page account-page" id="account-page">
+            <div class="page-hero">
+                <h1>Conta Nubank</h1>
+                <p>Uma conta digital completa, sem tarifas e com rendimento acima da poupança</p>
+            </div>
+            
+            <div class="page-content">
+                <h2>Sua conta digital</h2>
+                <p>A conta do Nubank é 100% digital, sem tarifas e com rendimento diário que supera a poupança. Você ainda pode fazer TEDs e boletos gratuitamente.</p>
+                
+                <div class="account-overview" style="margin: 30px 0;">
+                    <div class="account-header">
+                        <h2>Saldo disponível</h2>
+                        <div class="account-actions">
+                            <button class="account-btn" id="account-transfer-btn">Transferir</button>
+                            <button class="account-btn" id="account-deposit-btn">Depositar</button>
+                        </div>
+                    </div>
+                    <div class="account-balance">R$ 5.247,89</div>
+                    <p>Rendimento: R$ 12,45 este mês</p>
+                </div>
+                
+                <h2>Transferências recentes</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Descrição</th>
+                            <th>Valor</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>02/06/2023</td>
+                            <td>Transferência para João Silva</td>
+                            <td>- R$ 150,00</td>
+                            <td>Concluído</td>
+                        </tr>
+                        <tr>
+                            <td>30/05/2023</td>
+                            <td>Depósito via PIX</td>
+                            <td>+ R$ 500,00</td>
+                            <td>Concluído</td>
+                        </tr>
+                        <tr>
+                            <td>28/05/2023</td>
+                            <td>Transferência para Maria Souza</td>
+                            <td>- R$ 200,00</td>
+                            <td>Concluído</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h2 style="margin-top: 40px;">Seus dados bancários</h2>
+                <div style="background-color: var(--gray); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                    <p><strong>Agência:</strong> 0001</p>
+                    <p><strong>Conta:</strong> 1234567-8</p>
+                    <p><strong>PIX:</strong> 123.456.789-09</p>
+                    <button class="account-btn" style="margin-top: 10px;" id="copy-pix-btn">Copiar Chave PIX</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Página de Rewards -->
+        <section class="page rewards-page" id="rewards-page">
+            <div class="page-hero">
+                <h1>Nubank Rewards</h1>
+                <p>Ganhe pontos em todas as compras e troque por benefícios incríveis</p>
+            </div>
+            
+            <div class="page-content">
+                <h2>Seus pontos</h2>
+                <div style="text-align: center; margin: 30px 0;">
+                    <div style="font-size: 48px; font-weight: bold; color: var(--purple);">1.245</div>
+                    <p>pontos acumulados</p>
+                    <p>Valor equivalente: R$ 12,45</p>
+                </div>
+                
+                <h2>Como funciona</h2>
+                <p>Com o Nubank Rewards, você ganha pontos em todas as compras com seu cartão de crédito. Quanto mais você usa, mais pontos acumula para trocar por benefícios.</p>
+                
+                <ul class="benefits-list" style="margin: 30px 0;">
+                    <li>1 ponto a cada R$ 1,00 gasto</li>
+                    <li>Pontos que não expiram</li>
+                    <li>Resgate quando quiser</li>
+                    <li>1 ponto = R$ 0,01 na hora de resgatar</li>
+                </ul>
+                
+                <h2>Resgatar pontos</h2>
+                <div class="features-grid" style="margin: 30px 0;">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <h3>Desconto na fatura</h3>
+                        <p>Use seus pontos para abater diretamente na fatura do cartão.</p>
+                        <button class="account-btn" style="margin-top: 15px; width: 100%;">Resgatar</button>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <h3>Presentes</h3>
+                        <p>Troque por gift cards das melhores marcas.</p>
+                        <button class="account-btn" style="margin-top: 15px; width: 100%;">Resgatar</button>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <h3>Viagens</h3>
+                        <p>Resgate por milhas aéreas ou descontos em hotéis.</p>
+                        <button class="account-btn" style="margin-top: 15px; width: 100%;">Resgatar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Página de Empréstimos -->
+        <section class="page loans-page" id="loans-page">
+            <div class="page-hero">
+                <h1>Empréstimo Nubank</h1>
+                <p>Dinheiro rápido, sem burocracia e com taxas justas</p>
+            </div>
+            
+            <div class="page-content">
+                <h2>Seu empréstimo pessoal</h2>
+                <p>No Nubank, você consegue um empréstimo pessoal com taxas justas, sem precisar sair de casa e com o dinheiro na sua conta em poucas horas.</p>
+                
+                <div style="background-color: var(--gray); padding: 30px; border-radius: 10px; margin: 30px 0;">
+                    <h3 style="margin-bottom: 20px;">Você tem pré-aprovado</h3>
+                    <div style="font-size: 32px; font-weight: bold; color: var(--purple); margin-bottom: 10px;">R$ 5.000,00</div>
+                    <p style="margin-bottom: 20px;">em até 24x de R$ 250,00</p>
+                    <button class="form-submit" style="width: 100%;" id="request-loan-btn">Solicitar Empréstimo</button>
+                </div>
+                
+                <h2>Simule seu empréstimo</h2>
+                <form id="loan-simulator">
+                    <div class="form-group">
+                        <label for="loan-amount">Valor desejado</label>
+                        <input type="range" id="loan-amount" min="1000" max="50000" step="100" value="5000">
+                        <div style="text-align: center; font-size: 24px; margin: 10px 0;" id="loan-amount-value">R$ 5.000,00</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loan-installments">Número de parcelas</label>
+                        <select id="loan-installments">
+                            <option value="6">6x</option>
+                            <option value="12">12x</option>
+                            <option value="18">18x</option>
+                            <option value="24" selected>24x</option>
+                        </select>
+                    </div>
+                    
+                    <div style="background-color: var(--gray); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <h3 style="margin-bottom: 15px;">Resumo da simulação</h3>
+                        <p><strong>Valor total:</strong> <span id="total-amount">R$ 6.000,00</span></p>
+                        <p><strong>Parcelas:</strong> <span id="installment-value">24x de R$ 250,00</span></p>
+                        <p><strong>Taxa de juros:</strong> 2,5% a.m.</p>
+                    </div>
+                    
+                    <button type="submit" class="form-submit" style="width: 100%;">Continuar</button>
+                </form>
+                
+                <h2 style="margin-top: 40px;">Vantagens</h2>
+                <ul class="benefits-list">
+                    <li>Sem taxa de abertura de crédito</li>
+                    <li>Dinheiro na conta em até 2 horas</li>
+                    <li>Sem necessidade de fiador</li>
+                    <li>Parcelas fixas até o final</li>
+                    <li>Quitação antecipada sem multa</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Página de Investimentos -->
+        <section class="page investments-page" id="investments-page">
+            <div class="page-hero">
+                <h1>Investimentos Nubank</h1>
+                <p>Comece a investir com pouco dinheiro e sem complicação</p>
+            </div>
+            
+            <div class="page-content">
+                <h2>Seus investimentos</h2>
+                <div style="background-color: var(--gray); padding: 30px; border-radius: 10px; margin: 30px 0;">
+                    <div style="font-size: 32px; font-weight: bold; color: var(--purple); margin-bottom: 10px;">R$ 3.245,89</div>
+                    <p style="margin-bottom: 20px;">Valor total investido</p>
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>
+                            <p style="font-size: 14px;">Rendimento</p>
+                            <p style="font-size: 18px; font-weight: bold; color: #00a86b;">+ R$ 245,89</p>
+                        </div>
+                        <div>
+                            <p style="font-size: 14px;">Rentabilidade</p>
+                            <p style="font-size: 18px; font-weight: bold;">8,2% a.a.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h2>Onde investir</h2>
+                <div class="features-grid" style="margin: 30px 0;">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                        <h3>Nu Reserva Imediata</h3>
+                        <p>Rendimento diário, liquidez imediata e proteção do FGC.</p>
+                        <button class="account-btn" style="margin-top: 15px; width: 100%;">Investir</button>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>CDB Nu</h3>
+                        <p>Renda fixa com taxas atrativas e proteção do FGC.</p>
+                        <button class="account-btn" style="margin-top: 15px; width: 100%;">Investir</button>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <h3>ETF Internacional</h3>
+                        <p>Diversifique investindo em empresas globais.</p>
+                        <button class="account-btn" style="margin-top: 15px; width: 100%;">Investir</button>
+                    </div>
+                </div>
+                
+                <h2>Novos investimentos</h2>
+                <p>Quer começar a investir mas não sabe por onde? Responda algumas perguntas e nós te ajudamos a escolher a melhor opção para seu perfil.</p>
+                <button class="form-submit" style="margin-top: 20px; width: 100%;" id="investment-profile-btn">Descobrir meu perfil</button>
+                
+                <h2 style="margin-top: 40px;">Transações recentes</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Produto</th>
+                            <th>Valor</th>
+                            <th>Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>01/06/2023</td>
+                            <td>Nu Reserva Imediata</td>
+                            <td>+ R$ 500,00</td>
+                            <td>Aplicação</td>
+                        </tr>
+                        <tr>
+                            <td>25/05/2023</td>
+                            <td>CDB Nu</td>
+                            <td>- R$ 1.000,00</td>
+                            <td>Resgate</td>
+                        </tr>
+                        <tr>
+                            <td>15/05/2023</td>
+                            <td>ETF Internacional</td>
+                            <td>+ R$ 300,00</td>
+                            <td>Aplicação</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- Página Sobre Nós -->
+        <section class="page about-page" id="about-page">
+            <div class="page-hero">
+                <h1>Sobre o Nubank</h1>
+                <p>Reinventando o sistema financeiro</p>
+            </div>
+            
+            <div class="page-content">
+                <h2>Nossa história</h2>
+                <p>Fundado em 2013, o Nubank surgiu com a missão de devolver às pessoas o controle sobre o seu dinheiro. Começamos com um simples cartão de crédito sem anuidade e hoje somos uma das maiores plataformas financeiras digitais do mundo.</p>
+                
+                <div style="margin: 40px 0;">
+                    <img src="https://nubank.com.br/images-cms/1649260564-nu-office-1-xl.jpg?w=1152&dpr=1&auto=compress&fm=webp" alt="Escritório Nubank" style="width: 100%; border-radius: 10px;">
+                </div>
+                
+                <h2>Nossos números</h2>
+                <div class="features-grid" style="margin: 30px 0;">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>+70 milhões</h3>
+                        <p>de clientes</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <h3>3 países</h3>
+                        <p>Brasil, México e Colômbia</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <h3>US$ 30 bi</h3>
+                        <p>em valor de mercado</p>
+                    </div>
+                </div>
+                
+                <h2>Trabalhe conosco</h2>
+                <p>No Nubank, acreditamos que pessoas incríveis podem construir coisas extraordinárias juntas. Venha fazer parte do nosso time!</p>
+                <button class="form-submit" style="margin-top: 20px;" id="careers-btn">Ver vagas</button>
+                
+                <h2 style="margin-top: 40px;">Contato</h2>
+                <div class="features-grid" style="margin: 30px 0;">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>Central de ajuda</h3>
+                        <p>Tire suas dúvidas no nosso help center</p>
+                        <button class="account-btn" style="margin-top: 15px; width: 100%;">Acessar</button>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-comment-dots"></i>
+                        </div>
+                        <h3>Redes sociais</h3>
+                        <p>Nos siga nas redes sociais</p>
+                        <button class="account-btn" style="margin-top: 15px; width: 100%;">Acessar</button>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>E-mail</h3>
+                        <p>contato@nubank.com.br</p>
+                        <button class="account-btn" style="margin-top: 15px; width: 100%;">Enviar e-mail</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Nubank</h3>
+                <ul>
+                    <li><a href="#" class="nav-link" data-page="about">Sobre nós</a></li>
+                    <li><a href="#">Carreiras</a></li>
+                    <li><a href="#">Perguntas frequentes</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Produtos</h3>
+                <ul>
+                    <li><a href="#" class="nav-link" data-page="account">Conta digital</a></li>
+                    <li><a href="#" class="nav-link" data-page="card">Cartão de crédito</a></li>
+                    <li><a href="#" class="nav-link" data-page="rewards">Rewards</a></li>
+                    <li><a href="#" class="nav-link" data-page="loans">Empréstimo</a></li>
+                    <li><a href="#" class="nav-link" data-page="investments">Investimentos</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Explore</h3>
+                <ul>
+                    <li><a href="#">Comunidade</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Newsletter</a></li>
+                    <li><a href="#">México</a></li>
+                    <li><a href="#">Colômbia</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Conecte-se</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2023 Nubank. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Navegação entre páginas
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menu mobile
+            const menuToggle = document.getElementById('menu-toggle');
+            const mainMenu = document.getElementById('main-menu');
+            
+            menuToggle.addEventListener('click', function() {
+                mainMenu.classList.toggle('show');
+            });
+            
+            // Navegação entre páginas
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    
+                    // Esconder todas as páginas
+                    pages.forEach(page => {
+                        page.classList.remove('active');
+                    });
+                    
+                    // Mostrar a página selecionada
+                    document.getElementById(`${pageId}-page`).classList.add('active');
+                    
+                    // Fechar menu mobile se estiver aberto
+                    mainMenu.classList.remove('show');
+                    
+                    // Scroll para o topo
+                    window.scrollTo(0, 0);
+                });
+            });
+            
+            // Funções dos botões da página inicial
+            document.getElementById('request-card-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Redirecionando para solicitação de cartão...');
+            });
+            
+            document.getElementById('transfer-btn').addEventListener('click', function() {
+                alert('Abrindo tela de transferência...');
+            });
+            
+            document.getElementById('deposit-btn').addEventListener('click', function() {
+                alert('Abrindo tela de depósito...');
+            });
+            
+            document.getElementById('pay-btn').addEventListener('click', function() {
+                alert('Abrindo tela de pagamentos...');
+            });
+            
+            document.getElementById('view-all-transactions').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Mostrando todas as transações...');
+            });
+            
+            // Funções da página do cartão
+            document.getElementById('block-card-btn').addEventListener('click', function() {
+                alert('Cartão bloqueado com sucesso!');
+            });
+            
+            document.getElementById('change-limit-btn').addEventListener('click', function() {
+                alert('Abrindo tela para alteração de limite...');
+            });
+            
+            document.getElementById('virtual-card-btn').addEventListener('click', function() {
+                alert('Gerando cartão virtual...');
+            });
+            
+            document.getElementById('pay-invoice-btn').addEventListener('click', function() {
+                alert('Abrindo tela para pagamento da fatura...');
+            });
+            
+            // Funções da página da conta
+            document.getElementById('account-transfer-btn').addEventListener('click', function() {
+                alert('Abrindo tela de transferência...');
+            });
+            
+            document.getElementById('account-deposit-btn').addEventListener('click', function() {
+                alert('Abrindo tela de depósito...');
+            });
+            
+            document.getElementById('copy-pix-btn').addEventListener('click', function() {
+                alert('Chave PIX copiada para a área de transferência!');
+            });
+            
+            // Funções da página de rewards
+            document.getElementById('investment-profile-btn').addEventListener('click', function() {
+                alert('Iniciando questionário de perfil de investidor...');
+            });
+            
+            // Funções da página de empréstimos
+            const loanAmount = document.getElementById('loan-amount');
+            const loanAmountValue = document.getElementById('loan-amount-value');
+            const loanInstallments = document.getElementById('loan-installments');
+            const totalAmount = document.getElementById('total-amount');
+            const installmentValue = document.getElementById('installment-value');
+            
+            loanAmount.addEventListener('input', function() {
+                const value = parseFloat(this.value);
+                loanAmountValue.textContent = `R$ ${value.toFixed(2).replace('.', ',')}`;
+                updateLoanSimulation();
+            });
+            
+            loanInstallments.addEventListener('change', function() {
+                updateLoanSimulation();
+            });
+            
+            function updateLoanSimulation() {
+                const amount = parseFloat(loanAmount.value);
+                const installments = parseInt(loanInstallments.value);
+                const interestRate = 0.025; // 2.5% ao mês
+                
+                // Cálculo simples de juros compostos
+                const total = amount * Math.pow(1 + interestRate, installments);
+                const installment = total / installments;
+                
+                totalAmount.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+                installmentValue.textContent = `${installments}x de R$ ${installment.toFixed(2).replace('.', ',')}`;
+            }
+            
+            document.getElementById('loan-simulator').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Empréstimo solicitado com sucesso! Um consultor entrará em contato.');
+            });
+            
+            document.getElementById('request-loan-btn').addEventListener('click', function() {
+                alert('Empréstimo solicitado com sucesso! Um consultor entrará em contato.');
+            });
+            
+            // Funções da página de investimentos
+            document.getElementById('investment-profile-btn').addEventListener('click', function() {
+                alert('Iniciando questionário de perfil de investidor...');
+            });
+            
+            // Funções da página sobre nós
+            document.getElementById('careers-btn').addEventListener('click', function() {
+                alert('Abrindo página de carreiras em nova aba...');
+            });
+        });
+    </script>
+</body>
+</html>
