@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>CRUD</title>
+</head>
+<body>
+
+  <!-- Navegação principal -->
+  <h1>CRUD Simples — Clientes</h1>
+  <p>
+    <a href="#cadastrar">Cadastrar</a> |
+    <a href="#lista">Listar</a> |
+    <a href="#detalhar">Detalhar</a> |
+    <a href="#editar">Editar</a> |
+    <a href="#excluir">Excluir</a>
+  </p>
+  <hr>
+
+  <!-- CADASTRAR -->
+  <h2 id="cadastrar">Cadastrar Clientes</h2>
+  <!-- Apenas simulação: o action volta para a lista -->
+  <form action="#lista" method="get">
+    <input type="text" name="nome" placeholder="Digite seu nome"><br><br>
+    <input type="email" name="email" placeholder="Digite seu E-mail"><br><br>
+    <input type="text" id="cpf" name="cpf" placeholder="Digite seu CPF"><br><br>
+    <input type="tel" name="telefone" placeholder="Digite seu Telefone"><br><br>
+
+    <input type="submit" value="Salvar">
+    <a href="#cadastrar">Cancelar</a>
+  </form>
+
+  <p><a href="#topo">Voltar ao topo</a></p>
+  <hr>
+
+  <!-- LISTAR -->
+  <h2 id="lista">Lista de Clientes</h2>
+  <p><a href="#detalhar">+ Novo Cliente</a></p>
+
+  <table border="1" cellpadding="6">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>E-mail</th>
+        <th>Ações</th>
+        <th>CPF</th>
+        <th>Telefone</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Itens de exemplo (estáticos) -->
+      <tr>
+        <td>1</td>
+        <td>Matheus Silva</td>
+        <td>matheussilva@gmail.com</td>
+        <td>
+          <a href="#detalhar">ver</a> |
+          <a href="#editar">editar</a> |
+          <a href="#excluir">excluir</a>
+
+        <td>300.222.444-20</td>
+        <td>(11) 99999-1111</td>
+        </td>
+      </tr>
+
+      <tr>
+        <td>2</td>
+        <td>Lucas de Souza</td>
+        <td>lucasdesouza@gmail.com</td>
+        <td>
+          <a href="#detalhar">ver</a> |
+          <a href="#editar">editar</a> |
+          <a href="#excluir">excluir</a>
+
+        <td>300.222.444-20</td>
+        <td>(11) 99999-3333</td>
+        </td>
+
+        <tr>
+        <td>3</td>
+        <td>Priscilla Oliveira Pires</td>
+        <td>priscillaliveirapiresa@gmail.com</td>
+        <td>
+          <a href="#detalhar">ver</a> |
+          <a href="#editar">editar</a> |
+          <a href="#excluir">excluir</a>
+
+        <td>400.333.555-30</td>
+        <td>(11) 99999-4444</td>
+        </td>
+
+        <tr>
+        <td>4</td>
+        <td>Maria da Silva Serafim</td>
+        <td>maria32@gmail.com</td>
+        <td>
+          <a href="#detalhar">ver</a> |
+          <a href="#editar">editar</a> |
+          <a href="#excluir">excluir</a>
+
+        <td>200.300.400-21</td>
+        <td>(27) 99932-5543</td>
+        </td>
+
+        <tr>
+        <td>5</td>
+        <td>Julia Souza Costa</td>
+        <td>souzadascostas89@gmail.com</td>
+        <td>
+          <a href="#detalhar">ver</a> |
+          <a href="#editar">editar</a> |
+          <a href="#excluir">excluir</a>
+
+        <td>300.400.500-12</td>
+        <td>(27) 99943-3466</td>
+        </td>
+      </tr>
+
+      <!-- duplicar linhas para simular mais registros -->
+    </tbody>
+  </table>
+
+  <p><a href="#topo">Voltar ao topo</a></p>
+  <hr>
+
+  <!-- DETALHAR -->
+  <h2 id="detalhar">Detalhes dos Clientes</h2>
+  <!-- Exemplo estático -->
+  <p><strong>ID:</strong> 1</p>
+  <p><strong>Nome:</strong> Matheus Silva</p>
+  <p><strong>E-mail:</strong> matheussilva@gmail.com</p>
+  <p><strong>CPF:</strong> 200.111.333-10</p>
+  <p><strong>Telefone:</strong> (11) 99999-1111</p>
+
+  <p>
+    <a href="#lista">Voltar</a> |
+    <a href="#editar">Editar</a> |
+    <a href="#excluir">Excluir</a>
+  </p>
+
+  -------------------------------------------
+
+  <p><strong>ID:</strong> 2</p>
+  <p><strong>Nome:</strong> Lucas de Souza</p>
+  <p><strong>E-mail:</strong> lucasdesouza@gmail.com</p>
+  <p><strong>CPF:</strong> 300.222.444-20</p>
+  <p><strong>Telefone:</strong> (11) 99999-3333</p>
+
+  <p>
+    <a href="#lista">Voltar</a> |
+    <a href="#editar">Editar</a> |
+    <a href="#excluir">Excluir</a>
+  </p>
+
+  -------------------------------------------
+
+  <p><strong>ID:</strong> 3</p>
+  <p><strong>Nome:</strong> Priscilla Oliveira Pires</p>
+  <p><strong>E-mail:</strong> priscillaliveirapiresa@gmail.com</p>
+  <p><strong>CPF:</strong> 400.333.555-30</p>
+  <p><strong>Telefone:</strong> (11) 99999-4444</p>
+
+  <p>
+    <a href="#lista">Voltar</a> |
+    <a href="#editar">Editar</a> |
+    <a href="#excluir">Excluir</a>
+  </p>
+
+  -------------------------------------------
+
+  <p><strong>ID:</strong> 4</p>
+  <p><strong>Nome:</strong> Maria da Silva Serafim</p>
+  <p><strong>E-mail:</strong> maria32@gmail.com</p>
+  <p><strong>CPF:</strong> 200.300.400-21</p>
+  <p><strong>Telefone:</strong> (27)99932-5543</p>
+
+  <p>
+    <a href="#lista">Voltar</a> |
+    <a href="#editar">Editar</a> |
+    <a href="#excluir">Excluir</a>
+  </p>
+
+  -------------------------------------------
+
+  <p><strong>ID:</strong> 5</p>
+  <p><strong>Nome:</strong> Julia Souza Costa</p>
+  <p><strong>E-mail:</strong> souzadascostas89@gmail.com</p>
+  <p><strong>CPF:</strong> 300.400.500-12</p>
+  <p><strong>Telefone:</strong> (27)99943-3466</p>
+
+  <p>
+    <a href="#lista">Voltar</a> |
+    <a href="#editar">Editar</a> |
+    <a href="#excluir">Excluir</a>
+  </p>
+
+  <p><a href="#topo">Voltar ao topo</a></p>
+  <hr>
+
+  <!-- EDITAR -->
+  <h2 id="editar">Editar Clientes</h2>
+  <!-- Apenas simulação: o action volta para a lista -->
+  <form action="#lista" method="get">
+    <input type="text" name="id" value="1" readonly><br><br>
+    <input type="text" name="nome" value="João Silva Barreto"><br><br>
+    <input type="email" name="email" value="joaobarreto120@gmail.com"><br><br>
+    <input type="text" name="cpf" value="679.486.321-98"><br><br>
+    <input type="tel" name="telefone" value="(27) 99980-4040"><br><br>
+
+    <input type="submit" value="Atualizar">
+    <a href="#lista">Cancelar</a>
+  </form>
+
+  <p><a href="#topo">Voltar ao topo</a></p>
+  <hr>
+
+  <!-- EXCLUIR -->
+  <h2 id="excluir">Excluir Clientes</h2>
+  <p>Tem certeza que deseja excluir o cliente <strong>Matheus Silva</strong> (ID 1)?</p>
+
+  <!-- Apenas simulação: o "Excluir" volta para a lista -->
+  <form action="#lista" method="get">
+    <input type="submit" value="Excluir">
+    <a href="#lista">Cancelar</a>
+  </form>
+
+  <p><a href="#topo">Voltar ao topo</a></p>
+  <hr>
+
+  <a id="topo"></a>
+  <p><small>*Exemplo.</small></p>
+
+</body>
+</html>
