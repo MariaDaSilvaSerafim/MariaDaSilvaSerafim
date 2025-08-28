@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>CRUD Simples — Produtos</h1>
+            <p>
+                <a href="#lista">Listar</a> |
+                <a href="#criar">Criar</a> |
+                <a href="#detalhar">Detalhar</a> |
+                <a href="#editar">Editar</a> |
+                <a href="#excluir">Excluir</a>
+            </p>
+    </header>
+    
+    <div class="c1">
+                <!-- CADASTRAR -->
+        <h2 id="cadastrar" class="titulo">Cadastrar Clientes</h2>
+        <!-- Apenas simulação: o action volta para a lista -->
+        <form action="#lista" method="get">
+            <input type="text" name="nome" placeholder="Digite seu nome"><br><br>
+            <input type="email" name="email" placeholder="Digite seu E-mail"><br><br>
+            <input type="text" id="cpf" name="cpf" placeholder="Digite seu CPF"><br><br>
+            <input type="tel" name="telefone" placeholder="Digite seu Telefone"><br><br>
+
+            <input type="submit" value="Salvar">
+            <a href="#cadastrar">Cancelar</a>
+        </form>
+
+        <p><a href="#topo">Voltar ao topo</a></p>
+    </div>
+    
+</body>
+</html>
