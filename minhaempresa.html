@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DreamHouse XR — Visualização AR/VR para Obras</title>
+  <meta name="description" content="Plataforma que permite a arquitetos, engenheiros e clientes visualizar projetos em Realidade Aumentada e Realidade Virtual." />
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- model-viewer for AR preview (WebXR / AR Quick Look) -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --accent:#6ee7b7;
+      --primary:#10b981;
+      --muted:#94a3b8;
+      --glass: rgba(255,255,255,0.03);
+      --radius:12px;
+      --max-width:1100px;
+      --shadow: 0 8px 30px rgba(2,6,23,0.6);
+      font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      color: #e6eef6;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#071025 0%, #071b2b 60%);color:var(--muted);-webkit-font-smoothing:antialiased}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+
+    /* Header */
+    header{position:fixed;left:0;right:0;top:0;z-index:60;background:transparent;padding:18px 0}
+    .nav{display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{height:40px}
+    .brand h1{font-size:18px;margin:0;color:white}
+    nav ul{display:flex;gap:22px;list-style:none;padding:0;margin:0;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;font-weight:600}
+    .cta-btn{background:linear-gradient(90deg,var(--primary),var(--accent));padding:10px 16px;border-radius:999px;color:#031018;}
+
+    /* Hero */
+    .hero{padding-top:110px;padding-bottom:60px}
+    .hero-grid{display:grid;grid-template-columns:1fr 520px;gap:40px;align-items:center}
+    .kicker{display:inline-block;background:var(--glass);padding:6px 10px;border-radius:999px;color:var(--accent);font-weight:700;margin-bottom:14px}
+    h2{font-size:34px;color:#fff;margin:8px 0 14px}
+    p.lead{color:var(--muted);line-height:1.6}
+    .features{display:flex;gap:14px;margin-top:22px}
+    .feature{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:10px;display:flex;gap:12px;align-items:center}
+    .feature i{font-size:20px;color:var(--primary)}
+
+    /* Demo card */
+    .demo-card{background:linear-gradient(180deg,#07142b, #071a2a);border-radius:14px;padding:14px;box-shadow:var(--shadow)}
+    model-viewer{width:100%;height:420px;border-radius:8px;background:#020617;display:block}
+    .demo-actions{display:flex;gap:10px;margin-top:10px;justify-content:flex-end}
+    .btn{background:var(--primary);color:#031018;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+    /* How it works */
+    .how{padding:60px 0}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .step{background:var(--card);padding:18px;border-radius:12px}
+    .step h4{color:#fff;margin:10px 0}
+    .step p{color:var(--muted);font-size:14px}
+
+    /* Pricing & CTA */
+    .pricing{display:flex;gap:18px;margin-top:20px}
+    .plan{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;flex:1}
+    .plan h3{color:#fff}
+    .plan .price{font-size:22px;color:var(--accent);font-weight:700;margin:8px 0}
+
+    /* Contact */
+    .contact{padding:60px 0}
+    form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    form input, form textarea{padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--muted)}
+    form textarea{grid-column:1/ -1;height:120px}
+    .submit{grid-column:1 / -1;justify-self:end}
+
+    footer{padding:30px 0;color:var(--muted);border-top:1px solid rgba(255,255,255,0.02)}
+
+    @media(max-width:980px){
+      .hero-grid{grid-template-columns:1fr}
+      model-viewer{height:320px}
+      .steps{grid-template-columns:1fr}
+      form{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <img src="images/dreamhouse-xr-logo.png" alt="logo" onerror="this.style.display='none'"/>
+        <h1>DreamHouse XR</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#features">Recursos</a></li>
+          <li><a href="#how">Como funciona</a></li>
+          <li><a href="#demo">Demo</a></li>
+          <li><a href="#contact">Contato</a></li>
+        </ul>
+      </nav>
+      <a class="cta-btn" href="#contact">Solicitar Demo</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero container">
+      <div class="hero-grid">
+        <div>
+          <span class="kicker">Visualização AR • VR</span>
+          <h2>Veja seu projeto como se já estivesse construído</h2>
+          <p class="lead">DreamHouse XR permite que arquitetos, engenheiros, construtoras e clientes apontem um celular para o terreno e visualizem a edificação em escala real antes de qualquer obra. Entre no ambiente em VR e ajuste materiais em tempo real.</p>
+
+          <div class="features">
+            <div class="feature"><i class="fa-solid fa-camera"></i>Visualização no local</div>
+            <div class="feature"><i class="fa-solid fa-vr-cardboard"></i>Experiência VR</div>
+            <div class="feature"><i class="fa-solid fa-palette"></i>Alterações em tempo real</div>
+          </div>
+
+          <div style="margin-top:20px;display:flex;gap:12px">
+            <a class="btn" href="#demo">Abrir Demo</a>
+            <a class="btn ghost" href="#how">Como funciona</a>
+          </div>
+        </div>
+
+        <div class="demo-card" id="demo">
+          <!-- model-viewer: permite AR no mobile (Android/iOS) com glTF/GLB -->
+          <model-viewer id="model" src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" alt="Demo 3D" camera-controls auto-rotate ar ar-modes="webxr scene-viewer quick-look" environment-image="neutral" poster="images/demo-poster.jpg">
+            <!-- Fallback caption -->
+          </model-viewer>
+
+          <div class="demo-actions">
+            <button class="btn" id="open-ar">Abrir em AR</button>
+            <a class="btn ghost" id="download-model" href="https://modelviewer.dev/shared-assets/models/Astronaut.glb" download>Baixar Modelo</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="container how">
+      <h3 style="color:#fff">Recursos Principais</h3>
+      <div class="steps">
+        <div class="step">
+          <i class="fa-solid fa-location-dot" style="color:var(--primary)"></i>
+          <h4>Posicionamento no local</h4>
+          <p>Use o GPS e SLAM do dispositivo para fixar a maquete 3D no terreno real. Clientes visualizam a obra exatamente onde será erguida.</p>
+        </div>
+        <div class="step">
+          <i class="fa-solid fa-screwdriver-wrench" style="color:var(--primary)"></i>
+          <h4>Alterações instantâneas</h4>
+          <p>Troque materiais, cores e acabamentos em tempo real, sem precisar novas maquetes ou renders.</p>
+        </div>
+        <div class="step">
+          <i class="fa-solid fa-chart-line" style="color:var(--primary)"></i>
+          <h4>Relatórios & Integrações</h4>
+          <p>Exportação de relatórios, integração com Revit, SketchUp e sistemas BIM para sincronização automática de mudanças.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:22px;" class="pricing">
+        <div class="plan">
+          <h3>Starter</h3>
+          <div class="price">R$ 1.200 / mês</div>
+          <p style="color:var(--muted)">Ideal para escritórios pequenos. Inclui X projetos/mês e suporte básico.</p>
+        </div>
+        <div class="plan">
+          <h3>Pro</h3>
+          <div class="price">R$ 4.500 / mês</div>
+          <p style="color:var(--muted)">Para construtoras e incorporadoras. Projetos ilimitados e integração BIM.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" class="container" style="padding-bottom:40px">
+      <h3 style="color:#fff">Como funciona</h3>
+      <ol style="color:var(--muted);line-height:1.8">
+        <li><strong>Envio do projeto:</strong> Arquitetos enviam modelos Revit/SketchUp/GLTF.</li>
+        <li><strong>Processamento:</strong> Nosso conversor otimiza o modelo para AR (LOD, texturas e colisões).</li>
+        <li><strong>Implantação:</strong> Aplicativo posiciona o modelo no terreno usando SLAM e GPS.</li>
+        <li><strong>Interação:</strong> Usuário entra em modo VR, caminha pelo espaço e edita acabamentos em tempo real.</li>
+        <li><strong>Export:</strong> Relatórios de aprovação, capturas e alterações são salvas no painel SaaS.</li>
+      </ol>
+    </section>
+
+    <section id="contact" class="container contact">
+      <h3 style="color:#fff">Solicite uma demonstração</h3>
+      <p style="color:var(--muted)">Deixe seus dados e entraremos em contato para agendar uma demo ao vivo.</p>
+
+      <form id="contactForm">
+        <input type="text" name="name" placeholder="Nome" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="text" name="company" placeholder="Empresa" />
+        <textarea name="message" placeholder="Mensagem / Observações"></textarea>
+        <div class="submit"><button type="submit" class="btn">Enviar pedido</button></div>
+      </form>
+
+      <div id="thankyou" style="display:none;margin-top:12px;color:var(--accent)">Obrigado! Recebemos seu pedido. Entraremos em contato.</div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="display:flex;gap:12px;align-items:center"><img src="images/dreamhouse-xr-logo.png" alt="" style="height:36px;" onerror="this.style.display='none'"><div style="font-weight:700">DreamHouse XR</div></div>
+        <div style="color:var(--muted)">© 2025 DreamHouse XR • Todos os direitos reservados</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Menu smooth scroll
+    document.querySelectorAll('nav a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault();
+        const id = a.getAttribute('href');
+        document.querySelector(id).scrollIntoView({behavior:'smooth',block:'start'});
+      })
+    })
+
+    // Demo AR open button triggers model-viewer request to enter AR
+    const openAr = document.getElementById('open-ar');
+    const model = document.querySelector('model-viewer');
+    if(openAr && model){
+      openAr.addEventListener('click', async ()=>{
+        try{
+          await model.enterAR();
+        }catch(err){
+          alert('AR não disponível neste dispositivo ou navegador. Experimente abrir no seu celular moderno.');
+        }
+      })
+    }
+
+    // Simple contact form (local demo) — substitute with real backend
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', e=>{
+      e.preventDefault();
+      // placeholder: here you'd call your API (fetch(...))
+      form.style.display='none';
+      document.getElementById('thankyou').style.display='block';
+    })
+  </script>
+</body>
+</html>
