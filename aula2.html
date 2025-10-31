@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacotes de Viagem</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        .container2 {
+            display: grid;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        .c1 {
+            width: 100%;
+            background-color: white;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .c1:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .c1 img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .info {
+            padding: 15px;
+        }
+
+        .duration {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .destination {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .dates {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .flight {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .flight span {
+            margin: 0 5px;
+        }
+
+        .hotel {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .rating-value {
+            background-color: #003580;
+            color: white;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 5px;
+        }
+
+        .stars {
+            color: #f8ce0b;
+        }
+
+        .offer {
+            background-color: #e6f7ff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #0066cc;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .savings {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .price-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        .final-price {
+            font-weight: bold;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .taxes {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .miles {
+            font-size: 12px;
+            color: #0066cc;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container2">
+        <!-- Florianópolis -->
+        <div class="c1">
+            <img src="florianopolis.webp" alt="Florianópolis">
+            <div class="info">
+                <div class="duration">4 Dias / 3 Noites</div>
+                <div class="destination">Pacote para Florianópolis</div>
+                <div class="dates">A partir de Dom 14 Dez Até Qua 17 Dez</div>
+                <div class="flight">Voo direto SAO → FLN</div>
+                <div class="hotel">Rede Andrade Cecomtur</div>
+                <div class="offer">Oferta Imbatível</div>
+                <div class="savings">Economize R$308</div>
+                <div class="price-container">
+                    <div class="original-price">R$ 997</div>
+                    <div class="final-price">R$ 689</div>
+                </div>
+                <div class="taxes">Taxas e impostos incluídos</div>
+                <div class="miles">Ganhe 1.642 Milhas LATAM Pass</div>
+            </div>
+        </div>
+
+        <!-- Rio de Janeiro -->
+        <div class="c1">
+            <img src="rj.webp" alt="Rio de Janeiro">
+            <div class="info">
+                <div class="duration">4 Dias / 3 Noites</div>
+                <div class="destination">Pacote para Rio de Janeiro</div>
+                <div class="dates">A partir de Sex 05 Dez Até Seg 08 Dez</div>
+                <div class="flight">Voo direto SAO → RIO</div>
+                <div class="hotel">Atlântico Prime Hotel 7.2</div>
+                <div class="rating">
+                    <div class="rating-value">7.2</div>
+                    <div class="stars">★★★★</div>
+                </div>
+                <div class="offer">Oferta Imbatível</div>
+                <div class="savings">Economize R$390</div>
+                <div class="price-container">
+                    <div class="original-price">R$ 1.383</div>
+                    <div class="final-price">R$ 993</div>
+                </div>
+                <div class="taxes">Taxas e impostos incluídos</div>
+                <div class="miles">Ganhe 2.471 Milhas LATAM Pass</div>
+            </div>
+        </div>
+
+        <!-- Brasília -->
+        <div class="c1">
+            <img src="brasilia.webp" alt="Brasília">
+            <div class="info">
+                <div class="duration">4 Dias / 3 Noites</div>
+                <div class="destination">Cullinan Hplus Premium</div>
+                <div class="dates">A partir de Qui 27 Nov Até Dom 30 Nov</div>
+                <div class="flight">Voo direto SAO → BSB</div>
+                <div class="hotel">Cullinan Hplus Premium</div>
+                <div class="rating">
+                    <div class="stars">★★★★★</div>
+                </div>
+                <div class="savings">Economize R$753</div>
+                <div class="price-container">
+                    <div class="original-price">R$ 2.820</div>
+                    <div class="final-price">R$ 2.067</div>
+                </div>
+                <div class="taxes">Taxas e impostos incluídos</div>
+                <div class="miles">Ganhe 5.518 Milhas LATAM Pass</div>
+            </div>
+        </div>
+
+        <!-- Salvador -->
+        <div class="c1">
+            <img src="salvador.webp" alt="Salvador">
+            <div class="info">
+                <div class="duration">5 Dias / 4 Noites</div>
+                <div class="destination">Pacote para Salvador</div>
+                <div class="dates">A partir de Seg 08 Dez Até Sex 12 Dez</div>
+                <div class="flight">Voo direto SAO → SSA</div>
+                <div class="hotel">Rede Andrade Barra</div>
+                <div class="rating">
+                    <div class="rating-value">6.8</div>
+                </div>
+                <div class="offer">Oferta Imbatível</div>
+                <div class="savings">Economize R$541</div>
+                <div class="price-container">
+                    <div class="original-price">R$ 1.396</div>
+                    <div class="final-price">R$ 1.395</div>
+                </div>
+                <div class="taxes">Taxas e impostos incluídos</div>
+                <div class="miles">Ganhe 3.504 Milhas LATAM Pass</div>
+            </div>
+        </div>
+
+        <!-- Fortaleza -->
+        <div class="c1">
+            <img src="fortaleza.webp" alt="Fortaleza">
+            <div class="info">
+                <div class="duration">7 Dias / 6 Noites</div>
+                <div class="destination">Pacote para Fortaleza</div>
+                <div class="dates">A partir de Qua 11 Mar Até Ter 17 Mar</div>
+                <div class="flight">Voo direto SAD → FOR</div>
+                <div class="hotel">Ibis Budget Fortaleza Praia de...</div>
+                <div class="rating">
+                    <div class="rating-value">8.4</div>
+                </div>
+                <div class="savings">Economize R$665</div>
+                <div class="price-container">
+                    <div class="original-price">R$ 2.333</div>
+                    <div class="final-price">R$ 1.668</div>
+                </div>
+                <div class="taxes">Taxas e impostos incluídos</div>
+                <div class="miles">Ganhe 4.129 Milhas LATAM Pass</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
