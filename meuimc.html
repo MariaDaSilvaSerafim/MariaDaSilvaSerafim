@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dados de Informações</title>
+    <script src="script.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black min-h-screen flex items-center justify-center">
+    <div class="bg-white p-20 rounded-2xl flex flex-col items-center justify-center gap-12">
+        <h2 class="text-3xl font-bold text-red-500">
+            Calculadora de IMC
+        </h2>
+
+        <div class="flex flex-col items-center justify-center gap-4">
+            <input id="nome" type="text" name="nome" placeholder="Digite seu Nome" class="placeholder:text-black px-3.5 py-2 border border-black rounded-2xl"/>
+            <input id="peso" type="decimal" name="peso" placeholder="Digite seu Peso" class="placeholder:text-black px-3.5 py-2 border border-black rounded-2xl"/>
+            <input id="altura" type="decimal" step="0.01" name="altura" placeholder="Digite sua Altura" class="placeholder:text-black px-3.5 py-2 border border-black rounded-2xl"/>
+        </div>
+
+        <div>
+            <button id="calcularIMC" class="bg-black text-white px-20 py-2 rounded-lg">
+                Calcular
+            </button>
+        </div>
+
+        <div>
+            <ul id="listarDados">
+
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
